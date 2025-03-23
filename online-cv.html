@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - CV</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="/assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #f3f3f3, #555, #131313, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+        
+        .banner {
+            background-color: teal;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .thin-banner {
+            background-color: teal;
+            color: white;
+            padding: 1px;
+            text-align: center;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: teal;
+            padding: 10px 20px;
+        }
+        
+        .navbar img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body class="w3-light-grey">
+<div id="navbar-container"></div>
+<script>
+    fetch("components/navbar.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("navbar-container").innerHTML = data)
+        .catch(error => console.error("Error loading navbar:", error));
+</script>
+
+<!-- Banner -->
+<div class="thin-banner">
+  <hr>
+  <p>This is the online CV for Nathan Harvey</p>
+</div>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <img src="./assets/imgs/Me.jpg" style="width:100%" alt="Avatar">
+          <div class="w3-display-bottomleft w3-container w3-text-white w3-tag w3-teal w3-round"">
+            <h2>Nathan Harvey</h2>
+          </div>
+        </div>
+        <div class="w3-container">
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Database Admin</p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Sheffield, UK</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>mr.nharvey@outlook.com</p>
+          <hr>
+
+          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
+          <h5>Business Acumen:</h5>
+          <ul>
+              <li>Financial Analysis</li>
+              <li>Market Research</li>
+              <li>Pricing Strategy</li>
+              <li>Negotiation Skills</li>
+              <li>Overall Business Development</li>
+          </ul>
+
+          <h5>Operational Excellence:</h5>
+          <ul>
+              <li>Data Analysis</li>
+              <li>Process Optimization</li>
+              <li>Strategic Planning</li>
+              <li>Risk Management</li>
+          </ul>
+
+          <h5>Customer Engagement:</h5>
+          <ul>
+              <li>Customer Relationship Management (CRM)</li>
+              <li>Sales solutions & Marketing</li>
+              <li>Effective & efficient Communication</li>
+              <li>Networking</li>
+          </ul>
+
+          <h5>Leadership and Execution:</h5>
+          <ul>
+              <li>Team Leading</li>
+              <li>Adaptability</li>
+              <li>Project Management</li>
+              <li>Problem-Solving</li>
+              <li>Time Management</li>
+          </ul>
+
+          <h5>Technical Skills:</h5>
+          <ul>
+              <li>Python Programming</li>
+              <li>Data Scraping</li>
+              <li>Data Management</li>
+              <li>Preparation for Front-End Usage</li>
+              <li>Custom API Intergration</li>
+          </ul>
+          <br>
+
+          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+          <p>English</p>
+          <br>
+
+          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Programming Languages</b></p>
+          <ul>
+              <li>
+                  <h4>Python</h4>
+                  <p>Familiar Packages</p>
+                  <ul>
+                    <li>Beautiful Soup</li>
+                    <li>Requests</li>
+                    <li>Pandas</li>
+                    <li>NumPy</li>
+                    <li>Selenium</li>
+                    <li>And many more</li>
+                  </ul>
+              </li>
+          </ul>
+          <br>
+
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Profile</h2>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Work Ethic</b></h5>
+          <p>Dedicated and versatile professional with a proven track record in business development, operations optimization, and effective team leadership. My expertise lies in financial analysis, strategic planning, and fostering customer engagement. Proficient in Python programming and data management, I have developed custom solutions that drive business growth. With a proactive mindset and a commitment to continuous learning, I thrive in dynamic environments and excel in delivering results.</p>
+          <hr>
+          <h5 class="w3-opacity"><b>Work Hard, Play Hard</b></h5>
+          <p>Fuelled by an unquenchable thirst for personal growth, I am an enthusiast who thrives on the exhilarating blend of motorcycles, cutting-edge technology, the mysteries of physics, and the complexities of psychology. As an explorer of self-improvement and a seeker of thrilling adventures, my journey unfolds at the intersection of passion and curiosity.</p>
+          <p>My spirit for adventure knows no bounds. I thrive on the excitement of embarking on new journeys and pushing my limits. The thrill of exploring uncharted territories, both in the physical world and within the realm of knowledge, keeps me motivated and energized.</p>
+          <p>In my quest for self-improvement, I embrace challenges with an open heart and a thirst for understanding. I believe that every experience, whether in the realms of mechanics, technology, or psychology, contributes to my growth. Lifelong learning is my compass, guiding me through a symphony of passions as I forge a path of exploration and discovery.</p>
+          <hr>
+        </div>
+      </div>
+    
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Python Developer - Tools and Analytics - Race It Direct </b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2021 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+          <p>As a multifaceted individual, I leveraged business acumen to drive revenue growth through strategic pricing, marketing and effective negotiation. I optimized operational processes through data analysis, leading to enhanced efficiency and risk management. By fostering customer relationships and innovative communication, I expanded the market reach, demonstrating adaptability and leadership in project management. With proficiency in Python programming and data management, I designed custom stock feeds and tools that propelled the business into the 21st century. This optimization enabled us to outperform competitors even in challenging market conditions. 
+          Committed to continuous learning, I consistently seek opportunities for growth and improvement.</p>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Production Operative - DFS</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2018 - 2021</h6>
+          <p>As a dedicated Production Operative at DFS, I efficiently contributed to the manufacturing process, ensuring the timely and quality production of furniture. Proficiently operated machinery, adhered to safety protocols, and collaborated with team members to meet production targets. My attention to detail and commitment to maintaining a clean and organized workspace contributed to the overall efficiency of the production line.</p>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Store Support - Currys PC World</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2016 - 2017</h6>
+          <p>As a Store Support Colleague at Currys PC World, I played a pivotal role in ensuring the smooth operation of the store. Entrusted as a key holder, I provided exceptional customer service, addressing inquiries and resolving issues promptly. Collaborating closely with team members, I assisted in inventory management, restocking, and visual merchandising to create an inviting shopping environment. My dedication to delivering a positive customer experience and contributing to the store's overall functionality made a significant impact on daily operations.</p><br>
+        </div>
+      </div>
+
+      <div class="w3-container w3-card w3-white">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>The Open University at Leeds Bradford Airport</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2015 - 2018</h6>
+          <p>Air Transport Management BSc, Aviation/Airway Management and Operations</p>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Havelock Academy</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2015</h6>
+          <h6 class="w3-opacity">A-Levels</h6>
+          <ul>
+            <li>Business Studies, Physics, ICT and International Financial Studies.</li>
+          </ul>
+          <h6 class="w3-opacity">GSCE & BTEC</h6>
+          <ul>
+            <li>English Language, Mathematics, Core Science, Additional Science, Mathematical Statistics, Design & Technology Graphics, International Financial Studies, Engineering and Electronics, ICT.</li>
+          </ul>
+          <hr>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Outward Bound Canada</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2015</h6>
+          <p>Outward Bound Skills for Life Award - 21 Day White Water Expidition</p>         
+        </div>
+      </div>
+
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+
+<!-- Footer. This section contains an ad for W3Schools Spaces. You can leave it to support us. -->
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+  <p>Find me on LinkedIn.</p>
+  <a href="https://www.linkedin.com/in/nathan-harvey/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+  <hr>
+</footer>
+
+</body>
+</html>

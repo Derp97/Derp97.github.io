@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    #navbar-container {
+        width: 100%;
+        background-color: teal;
+        padding: 10px 20px;
+        box-sizing: border-box;
+      }
+    
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: teal;
+        padding: 10px 20px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .navbar img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 15px;
+        transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        display: block;
+        text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+
+<nav class="navbar">
+    <img src="../assets/imgs/logo.png" alt="https://via.placeholder.com/50">
+
+    <div class="nav-links">
+        <a href="/home.html">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/random-pages-index.html">Random Pages</a>
+        <a href="/online-cv.html">Online CV</a>
+    </div>
+
+    <div class="dropdown">
+        <button class="w3-button w3-teal">Menu ▼</button>
+        <div class="dropdown-content">
+            <a href="#">These</a>
+            <a href="#">Do Not</a>
+            <a href="#">Go Anywhere...</a>
+            <a href="#">Currently... 🤞</a>
+        </div>
+    </div>
+</nav>
