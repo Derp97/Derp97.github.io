@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ness is Cool</title>
+    <link rel="icon" href="/assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column; /* Ensures navbar stays at top */
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #f3f3f3, #555, #131313, #ffffff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 1s ease infinite;
+    }
+    
+      .container {
+        text-align: center;
+        margin-top: 60px; /* Space below navbar */
+      }
+      .animated-text {
+        font-size: 2rem;
+        color: #3498db;
+        animation: coolAnimation 2s infinite;
+      }
+      @keyframes coolAnimation {
+        0%, 100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(20px);
+        }
+      }
+
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+
+    <script>
+        fetch("../components/navbar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("navbar-container").innerHTML = data)
+            .catch(error => console.error("Error loading navbar:", error));
+    </script>
+
+    <div class="container">
+        <h1 class="animated-text">👌</h1>
+    </div>
+</body>
+</html>
