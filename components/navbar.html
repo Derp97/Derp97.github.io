@@ -6,8 +6,8 @@
         background-color: teal;
         padding: 10px 20px;
         box-sizing: border-box;
-      }
-    
+    }
+
     .navbar {
         display: flex;
         align-items: center;
@@ -16,12 +16,19 @@
         padding: 10px 20px;
         width: 100%; /* Ensure full width */
         box-sizing: border-box;
+        flex-wrap: wrap; /* Allow items to wrap */
     }
 
     .navbar img {
         width: 50px;
         height: 50px;
         border-radius: 5px;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Make sure they are spaced out */
     }
 
     .nav-links a {
@@ -64,6 +71,39 @@
 
     .dropdown:hover .dropdown-content {
         display: block;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column; /* Stack items vertically */
+            align-items: flex-start; /* Align items to the left */
+            padding: 10px; /* Adjust padding for smaller screens */
+        }
+
+        .nav-links {
+            width: 100%; /* Make the navigation links take the full width */
+            flex-direction: column; /* Stack the nav links vertically */
+            justify-content: flex-start; /* Align to the top */
+        }
+
+        .nav-links a {
+            padding: 12px; /* Adjust padding for larger click areas */
+            width: 100%; /* Make each link span the full width */
+            text-align: left; /* Align text to the left */
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            width: 100%; /* Make dropdown items full width */
+        }
+    }
+
+    /* Mobile Dropdown Button */
+    @media (max-width: 768px) {
+        .dropdown button {
+            width: 100%; /* Make the dropdown button take full width on mobile */
+        }
     }
 </style>
 
