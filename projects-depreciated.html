@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nate&Co - Home</title>
+    <title>Nate&Co - Old Projects</title>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="/assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
@@ -24,6 +24,13 @@
             background-color: teal;
             color: white;
             padding: 20px;
+            text-align: center;
+        }
+
+        .thin-banner {
+            background-color: teal;
+            color: white;
+            padding: 1px;
             text-align: center;
         }
         
@@ -82,25 +89,6 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-        
-        .island-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            padding: 20px;
-        }
-        
-        .island {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: 250px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
     </style>
 </head>
 <body>
@@ -111,6 +99,13 @@
             .then(data => document.getElementById("navbar-container").innerHTML = data)
             .catch(error => console.error("Error loading navbar:", error));
     </script>
+
+    <!-- Banner -->
+    <div class="thin-banner">
+    <hr>
+    <p>These are unmaintained projects that have fell into the void</p>
+    </div>
+
     <!-- Page Container -->
     <div class="w3-content w3-margin-top" style="max-width:1400px;">
 
@@ -118,29 +113,45 @@
         <div class="w3-row-padding">
             <div class="w3-container w3-card w3-white w3-margin-bottom">
                 <div class="w3-display-container">
-                    <p> Home page is still being built - Probably going to flesh out the rest of the site a little bit first, then I will add stuff here 😋 </p>
-                    <hr>
-                    <p>In the meantime below are some links around the website, these can all be found in the navbar or the menu on the right </p>
-                </div>    
+                    <h2 class="w3-text-grey w3-padding-16 w3-center">Old Non-Maintained Projects</h2>
+
+                </div>     
+
+            <!-- Grid Tiles -->
+            
+                <!-- Tile 1-->
+                <div class="w3-card-4">
+                    <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Lego-Pick-A-Brick</h2>
+                        <div class="w3-container">
+                            <h5 class="w3-opacity"><b>Project Status (Depreciated)</b></h5>
+                            <p>The Lego Pick-A-Brick Scraper is a Python script designed to extract all active parts available on the Lego Pick-A-Brick website. It gathers essential information such as Element ID, Design number, part name, color ID, ,Current price and many more for each Lego part.</p>
+                            <hr>
+                            <a href="https://github.com/Derp97/Lego-Pick-A-Brick" target="_blank">Github Link</a>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tile 2-->
+                <div class="w3-card-4">
+                    <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>BWin Odds Scraper</h2>
+                        <div class="w3-container">
+                            <h5 class="w3-opacity"><b>Project Status (Depreciated)</b></h5>
+                            <p>This Python script is designed for scraping sports betting data from the Bwin website.</p>
+                            <hr>
+                            <a href="https://github.com/Derp97/odds_scraper" target="_blank">Github Link</a>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Grid Tiles -->
         <!-- End Grid -->
-            </div>
-        
-            <div class="island-container">
-                <div class="island">
-                    <a href="/online-cv.html">My CV</a>
-                </div>
-                <div class="island">
-                    <a href="/projects-depreciated.html">Old Public Projects</a>
-                </div>
-                <div class="island">
-                    <a href="/projects-current.html">Current Projects</a>
-                </div>
-                <div class="island">
-                    <a href="/random-pages/conga-ditto.html">Conga</a>
-                </div>
-            </div>
-        <!-- End Page Container -->
         </div>
+        
+        <!-- End Page Container -->
     </div>
 </body>
 </html>
