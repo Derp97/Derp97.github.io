@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Nate&Co - Dungeon Generator Game</title>
+  <title>Nate&Co - Generic Dungeon Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
@@ -93,16 +93,102 @@
             .then(data => document.getElementById("navbar-container").innerHTML = data)
             .catch(error => console.error("Error loading navbar:", error));
     </script>
-  <main>
-    <h1>Dungeon Generator</h1>
-    <button id="generateBtn">Generate Dungeon</button>
-    <button id="buyMaxHealthBtn">Buy Max Health</button>
-    <button id="healBtn">Heal (10)</button>
-    <button id="buyArmourBtn">Buy Armour</button>
-    <button id="buyDashBtn">Buy Dash Upgrade</button>
-    <canvas id="dungeonCanvas" width="960" height="560"></canvas>
+  <main class="game-shell">
+    <h1>Generic Dungeon Game V1.1</h1>
+
+    <div class="game-layout">
+      <aside class="sidebar sidebar-left" aria-label="Game information">
+        <section class="panel">
+          <h2>Run Info</h2>
+          <dl class="stats-list">
+            <div><dt>Floor</dt><dd id="floorValue">1</dd></div>
+            <div><dt>Score</dt><dd id="scoreValue">0</dd></div>
+            <div><dt>Gold</dt><dd id="goldValue">0</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <h2>Player</h2>
+          <dl class="stats-list">
+            <div><dt>Health</dt><dd id="healthValue">30/30</dd></div>
+            <div><dt>Armour</dt><dd id="armourValue">0/5</dd></div>
+            <div><dt>Chest Key</dt><dd id="keyValue">No</dd></div>
+            <div><dt>Dash</dt><dd id="dashValue">Ready</dd></div>
+          </dl>
+        </section>
+      </aside>
+
+      <section class="game-board" aria-label="Dungeon canvas">
+        <div class="canvas-wrap">
+          <canvas id="dungeonCanvas" width="960" height="560"></canvas>
+
+          <div id="mobileControls" class="mobile-controls" aria-label="Mobile game controls">
+            <div id="mobileDpad" class="mobile-joystick" aria-label="Movement joystick">
+              <div class="mobile-joystick-base" aria-hidden="true">
+                <div id="mobileJoystickKnob" class="mobile-joystick-knob"></div>
+              </div>
+            </div>
+
+            <div class="mobile-actions" aria-label="Action controls">
+              <button class="mobile-action-btn mobile-sprint-btn" data-hold-key="shift" aria-label="Hold to sprint">Sprint</button>
+              <button id="mobileDashBtn" class="mobile-action-btn mobile-dash-btn" type="button" aria-label="Dash">Dash</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar sidebar-right" aria-label="Settings and shop">
+        <section class="panel">
+          <h2>Actions</h2>
+          <div class="controls">
+            <button id="generateBtn">Generate Dungeon</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Shop</h2>
+          <div class="controls">
+            <button id="buyMaxHealthBtn">Buy Max Health</button>
+            <button id="healBtn">Heal</button>
+            <button id="buyArmourBtn">Buy Armour</button>
+            <button id="buyDashBtn">Buy Dash Upgrade</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Settings</h2>
+          <div class="settings-list">
+            <label>
+              <input id="showCanvasHudToggle" type="checkbox" checked>
+              Show canvas HUD
+            </label>
+
+            <label class="setting-row setting-row-stacked">
+              <span>UI layout</span>
+              <select id="uiLayoutSelect">
+                <option value="auto">Auto</option>
+                <option value="desktop">Desktop sidebars</option>
+                <option value="mobile">Mobile stacked</option>
+              </select>
+            </label>
+          </div>
+        </section>
+      </aside>
+    </div>
   </main>
 
-  <script src="main.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/tiles.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/mobileControls.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/dungeon.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/enemies.js"></script>
+  <script src="js/game.js"></script>
 </body>
 </html>
