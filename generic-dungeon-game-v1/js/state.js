@@ -25,3 +25,14 @@ let currentDungeon = null;
 let dungeonFloor = 1;
 let hasChestKey = false;
 let enemies = [];
+
+const canvasUi = {
+  hitboxes: [],
+  pointerMode: null,
+  activePointerId: null,
+  joystickVector: { x: 0, y: 0 },
+  settings: {
+    showHud: true,
+    controlsMode: "auto", // auto, show, hide
+  },
+};

@@ -1,25 +1,21 @@
-function updateShopButtons() {
-  buyMaxHealthBtn.disabled = gold < HEALTH_UPGRADE_COST;
-  healBtn.disabled = gold < HEAL_COST || health >= maxHealth;
-  buyArmourBtn.disabled = gold < armourCost || armourLevel >= MAX_ARMOUR_LEVEL;
-  buyDashBtn.disabled = gold < dashUpgradeCost || dashLevel >= MAX_DASH_LEVEL;
+function canBuyMaxHealth() {
+  return gold >= HEALTH_UPGRADE_COST;
+}
 
-  buyMaxHealthBtn.textContent = `Buy Max Health (${HEALTH_UPGRADE_COST}g)`;
-  healBtn.textContent = `Heal (${HEAL_COST}g)`;
+function canBuyHeal() {
+  return gold >= HEAL_COST && health < maxHealth;
+}
 
-  buyArmourBtn.textContent =
-    armourLevel >= MAX_ARMOUR_LEVEL
-      ? "Armour Maxed"
-      : `Buy Armour (${armourCost}g)`;
+function canBuyArmour() {
+  return gold >= armourCost && armourLevel < MAX_ARMOUR_LEVEL;
+}
 
-  buyDashBtn.textContent =
-    dashLevel >= MAX_DASH_LEVEL
-      ? "Dash Maxed"
-      : `Upgrade Dash (${dashUpgradeCost}g)`;
+function canBuyDashUpgrade() {
+  return gold >= dashUpgradeCost && dashLevel < MAX_DASH_LEVEL;
 }
 
 function buyMaxHealth() {
-  if (gold < HEALTH_UPGRADE_COST) return;
+  if (!canBuyMaxHealth()) return;
 
   gold -= HEALTH_UPGRADE_COST;
   maxHealth += 10;
@@ -29,7 +25,7 @@ function buyMaxHealth() {
 }
 
 function buyHeal() {
-  if (gold < HEAL_COST) return;
+  if (!canBuyHeal()) return;
 
   gold -= HEAL_COST;
   health += 10;
@@ -39,8 +35,7 @@ function buyHeal() {
 }
 
 function buyArmour() {
-  if (gold < armourCost) return;
-  if (armourLevel >= MAX_ARMOUR_LEVEL) return;
+  if (!canBuyArmour()) return;
 
   gold -= armourCost;
   armourLevel += 1;
@@ -50,8 +45,7 @@ function buyArmour() {
 }
 
 function buyDashUpgrade() {
-  if (dashLevel >= MAX_DASH_LEVEL) return;
-  if (gold < dashUpgradeCost) return;
+  if (!canBuyDashUpgrade()) return;
 
   gold -= dashUpgradeCost;
   dashLevel += 1;
