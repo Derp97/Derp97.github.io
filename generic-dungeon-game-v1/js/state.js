@@ -32,7 +32,7 @@ const canvasUi = {
   activePointerId: null,
   joystickVector: { x: 0, y: 0 },
   settings: {
-    showHud: true,
+    showHud: false,
     controlsMode: "auto", // auto, show, hide
   },
 };

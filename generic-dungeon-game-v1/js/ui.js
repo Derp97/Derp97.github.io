@@ -259,8 +259,8 @@ function drawMobileControls() {
   ctx.arc(knobX, knobY, JOYSTICK_KNOB_RADIUS, 0, Math.PI * 2);
   ctx.fill();
 
-  drawRoundActionButton("sprint", "Sprint", 1360, 800, 54, true);
-  drawRoundActionButton("dash", "Dash", 1490, 800, 54, false);
+  drawRoundActionButton("sprint", "Sprint", 1020, 650, 40, true);
+  drawRoundActionButton("dash", "Dash", 1110, 650, 40, false);
   ctx.restore();
 }
 

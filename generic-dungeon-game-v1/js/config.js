@@ -8,18 +8,18 @@ const GRID_WIDTH = 60;
 const GRID_HEIGHT = 35;
 const ROOM_PADDING = 2;
 
-const GAME_SCREEN_WIDTH = 1600;
-const GAME_SCREEN_HEIGHT = 900;
-const BOARD_X = 240;
+const GAME_SCREEN_WIDTH = 1300;
+const GAME_SCREEN_HEIGHT = 700;
+const BOARD_X = 200;
 const BOARD_Y = 140;
 const BOARD_WIDTH = GRID_WIDTH * TILE_SIZE;
 const BOARD_HEIGHT = GRID_HEIGHT * TILE_SIZE;
 
-const LEFT_PANEL = { x: 20, y: 140, width: 190, height: 560 };
-const FULL_RIGHT_PANEL = { x: 1220, y: 140, width: 360, height: 560 };
+const LEFT_PANEL = { x: 20, y: 140, width: 160, height: 560 };
+const FULL_RIGHT_PANEL = { x: 1180, y: 140, width: 240, height: 560 };
 
 const UI_STORAGE_KEY = "dungeonCanvasUiSettings";
-const JOYSTICK_CENTER = { x: 360, y: 800 };
+const JOYSTICK_CENTER = { x: 270, y: 630 };
 const JOYSTICK_RADIUS = 58;
 const JOYSTICK_KNOB_RADIUS = 22;
 const MOBILE_CONTROL_BREAKPOINT = 760;
