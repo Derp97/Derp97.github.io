@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSRS Stats</title>
+    <link rel="icon" href="/assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column; /* Ensures navbar stays at top */
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #f3f3f3, #555, #131313, #ffffff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 1s ease infinite;
+    }
+    
+    .container {
+        text-align: center;
+        margin-top: 60px;
+    }
+    .animated-text {
+        font-size: 2rem;
+        color: #3498db;
+        animation: coolAnimation 2s infinite;
+    }
+    @keyframes coolAnimation {
+        0%, 100% {
+        transform: translateX(0);
+        }
+        50% {
+        transform: translateX(20px);
+        }
+    }
+
+    .thin-banner {
+        background-color: teal;
+        color: white;
+        padding: 1px;
+        text-align: center;
+        align-self: stretch;
+    }
+
+    .results-box {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .profile-summary {
+        background: linear-gradient(135deg, #ffffff, #eeeeee);
+        padding: 22px;
+        border-radius: 14px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 14px;
+    }
+
+    .summary-card,
+    .stat-card {
+        background: #f7f7f7;
+        border-left: 5px solid #009688;
+        padding: 14px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .summary-card span,
+    .stat-card span {
+        display: block;
+        color: #777;
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+    }
+
+    .summary-card strong,
+    .stat-card strong {
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    .stats-section {
+        background: white;
+        margin: 24px 0;
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+
+    .stats-section h3 {
+        margin-top: 0;
+        color: #555;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+    }
+
+    .stat-card h4 {
+        margin: 0 0 10px;
+        text-transform: capitalize;
+        color: #333;
+    }
+
+    .stat-card p {
+        margin: 4px 0;
+        color: #555;
+    }
+
+    .search-bar {
+        display: flex;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-bar input {
+        flex: 1;
+        border-radius: 8px 0 0 8px;
+        border-right: none;
+    }
+
+    .search-bar button {
+        border-radius: 0 8px 8px 0;
+        white-space: nowrap;
+    }
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <script>
+        fetch("../components/navbar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("navbar-container").innerHTML = data)
+            .catch(error => console.error("Error loading navbar:", error));
+    </script>       
+
+    <!-- Banner -->
+    <div class="thin-banner">
+        <hr>
+        <p>This is a stat page for Old School RuneScape activities.</p>
+    </div>
+
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="width:100%;">
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+            <div class="w3-container w3-card w3-white w3-margin-bottom">
+                <div class="w3-display-container w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16 w3-center">OSRS Stats Puller</h2>
+
+                    <div class="search-bar">
+                        <input
+                            id="textBox"
+                            class="w3-input w3-border"
+                            type="text"
+                            placeholder="OSRS Username..."
+                        />
+                        <button
+                            id="submitBtn"
+                            class="w3-button w3-teal"
+                        >
+                            Fetch Stats
+                        </button>
+                    </div>
+                </div>
+
+            <!-- Grid Tiles -->
+                <!-- Tile 1-->
+                <div class="w3-card-4">
+                    <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 id="playerTitle" class="w3-text-grey w3-padding-16"><i class="fa fa-gamepad fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Input Your OSRS Username</h2>
+                        <div id="resultsBox" class="w3-container">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Grid Tiles -->
+            <h4 class="w3-text-grey w3-padding-16 w3-center">Stats provided by <a href="https://wiseoldman.net/" target="_blank" class="w3-text-teal">Wise Old Man</a></h4>
+        <!-- End Grid -->
+        </div>
+        
+        <!-- End Page Container -->
+    </div>
+    <script>
+    const playerTitle = document.getElementById("playerTitle");
+    const textBox = document.getElementById("textBox");
+    const submitBtn = document.getElementById("submitBtn");
+    const resultsBox = document.getElementById("resultsBox");
+
+    function formatName(name) {
+        return name.replaceAll("_", " ");
+    }
+
+    function formatNumber(num) {
+        return Number(num).toLocaleString();
+    }
+
+    function renderSkills(skills) {
+        return `
+            <div class="stats-section">
+                <h3>Skills</h3>
+                <div class="stats-grid">
+                    ${Object.values(skills).map(skill => `
+                        <div class="stat-card">
+                            <h4>${formatName(skill.metric)}</h4>
+                            <p>Level: ${skill.level}</p>
+                            <p>XP: ${formatNumber(skill.experience)}</p>
+                            <p>Rank: ${skill.rank === -1 ? "Unranked" : formatNumber(skill.rank)}</p>
+                        </div>
+                    `).join("")}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderBosses(bosses) {
+        const killedBosses = Object.values(bosses).filter(boss => boss.kills > 0);
+
+        return `
+            <div class="stats-section">
+                <h3>Bosses</h3>
+                <div class="stats-grid">
+                    ${killedBosses.map(boss => `
+                        <div class="stat-card">
+                            <h4>${formatName(boss.metric)}</h4>
+                            <p>Kills: ${formatNumber(boss.kills)}</p>
+                            <p>Rank: ${boss.rank === -1 ? "Unranked" : formatNumber(boss.rank)}</p>
+                        </div>
+                    `).join("")}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderActivities(activities) {
+        const activeActivities = Object.values(activities).filter(activity => activity.score > 0);
+
+        return `
+            <div class="stats-section">
+                <h3>Activities</h3>
+                <div class="stats-grid">
+                    ${activeActivities.map(activity => `
+                        <div class="stat-card">
+                            <h4>${formatName(activity.metric)}</h4>
+                            <p>Score: ${formatNumber(activity.score)}</p>
+                            <p>Rank: ${activity.rank === -1 ? "Unranked" : formatNumber(activity.rank)}</p>
+                        </div>
+                    `).join("")}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderPlayer(data) {
+        const snapshot = data.latestSnapshot.data;
+
+        playerTitle.innerHTML = `
+            <i class="fa fa-gamepad fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+            ${data.displayName}'s Stats
+        `;
+
+        resultsBox.innerHTML = `
+            <div class="profile-summary">
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <span>Combat Level</span>
+                        <strong>${data.combatLevel}</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Total Level</span>
+                        <strong>${snapshot.skills.overall.level}</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Total XP</span>
+                        <strong>${formatNumber(data.exp)}</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>EHP</span>
+                        <strong>${data.ehp.toFixed(2)}</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>EHB</span>
+                        <strong>${data.ehb.toFixed(2)}</strong>
+                    </div>
+                </div>
+            </div>
+
+            ${renderSkills(snapshot.skills)}
+            ${renderBosses(snapshot.bosses)}
+            ${renderActivities(snapshot.activities)}
+        `;
+    }
+
+    async function submitText() {
+        const username = textBox.value.trim();
+
+        if (!username) {
+            playerTitle.innerHTML = `
+                <i class="fa fa-gamepad fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+                Input Your OSRS Username
+            `;
+            resultsBox.innerHTML = "";
+            return;
+        }
+
+        playerTitle.innerHTML = `
+            <i class="fa fa-spinner fa-spin fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+            Loading...
+        `;
+
+        resultsBox.innerHTML = `
+            <div class="stats-section">
+                <p>Fetching stats for <strong>${username}</strong>...</p>
+            </div>
+        `;
+
+        try {
+            const response = await fetch(`https://api.wiseoldman.net/v2/players/${encodeURIComponent(username)}`);
+
+            if (!response.ok) {
+                throw new Error("API request failed");
+            }
+
+            const data = await response.json();
+
+            renderPlayer(data);
+
+        } catch (error) {
+            console.error(error);
+
+            playerTitle.innerHTML = `
+                <i class="fa fa-gamepad fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+                Input Your OSRS Username
+            `;
+
+            resultsBox.innerHTML = `
+                <div class="stats-section">
+                    <h3>Error</h3>
+                    <p>Could not fetch stats for that username.</p>
+                </div>
+            `;
+        }
+    }
+
+    submitBtn.addEventListener("click", submitText);
+
+    textBox.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            submitText();
+        }
+    });
+    </script>
+</body>
+</html>
