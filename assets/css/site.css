@@ -837,6 +837,378 @@ select:focus-visible {
     background: rgba(0, 0, 0, 0.9);
 }
 
+/* Aperture Terminal */
+
+.aperture-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(255, 164, 28, 0.35), transparent 35%),
+        linear-gradient(135deg, #1a0f05, #3a2108 45%, #0b0703);
+    color: #ffb347;
+    overflow-x: hidden;
+}
+
+.aperture-shell {
+    min-height: calc(100vh - 74px);
+    padding: var(--space-xl);
+}
+
+.aperture-screen {
+    min-height: calc(100vh - 120px);
+    border: 2px solid rgba(255, 179, 71, 0.75);
+    box-shadow:
+        inset 0 0 80px rgba(255, 146, 20, 0.25),
+        0 0 40px rgba(255, 146, 20, 0.25);
+    background:
+        linear-gradient(rgba(255, 179, 71, 0.05) 50%, rgba(0, 0, 0, 0.05) 50%),
+        radial-gradient(circle at center, rgba(255, 146, 20, 0.25), rgba(20, 10, 2, 0.95));
+    background-size: 100% 4px, cover;
+    padding: var(--space-xl);
+    position: relative;
+}
+
+.aperture-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,0.25), transparent 15%, transparent 85%, rgba(0,0,0,0.35));
+}
+
+.aperture-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 620px;
+    gap: var(--space-xl);
+}
+
+.aperture-terminal,
+.aperture-side-panel {
+    font-family: monospace;
+    text-shadow: 0 0 8px rgba(255, 179, 71, 0.65);
+}
+
+.aperture-terminal {
+    font-size: clamp(1rem, 2vw, 1.45rem);
+}
+
+.aperture-line {
+    margin-bottom: var(--space-sm);
+    color: #ffd17a;
+}
+
+.aperture-line span {
+    font-weight: 700;
+}
+
+.terminal-output {
+    margin-top: var(--space-xl);
+}
+
+.terminal-output pre {
+    white-space: pre-wrap;
+    margin-bottom: var(--space-lg);
+}
+
+.terminal-command {
+    color: #fff0b8;
+    margin-bottom: var(--space-sm);
+}
+
+.terminal-form {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.terminal-form label {
+    color: #fff0b8;
+}
+
+.terminal-form input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #ffd17a;
+    font: inherit;
+    caret-color: #fff0b8;
+    text-transform: uppercase;
+}
+
+/* Right Diagnostic Area */
+
+.aperture-side-panel {
+    display: grid;
+    align-content: start;
+    gap: var(--space-lg);
+}
+
+.aperture-top-strip {
+    display: grid;
+    grid-template-columns: 1fr 84px 150px;
+    gap: var(--space-sm);
+    align-items: stretch;
+}
+
+.aperture-code-stream-panel,
+.aperture-system-readout,
+.aperture-logo,
+.aperture-status {
+    border: 2px solid rgba(255, 179, 71, 0.65);
+    background: rgba(255, 146, 20, 0.08);
+}
+
+.aperture-code-stream-panel {
+    min-height: 118px;
+    overflow: hidden;
+}
+
+.aperture-system-readout {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    font-size: 1.25rem;
+}
+
+.aperture-logo {
+    position: relative;
+    min-height: 118px;
+    overflow: hidden;
+}
+
+.aperture-logo::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    width: 90%;
+    height: 2px;
+    background: rgba(255, 179, 71, 0.25);
+    transform: translateY(-50%);
+}
+
+.aperture-orb {
+    position: absolute;
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffb347;
+    box-shadow:
+        0 0 8px rgba(255, 179, 71, 0.9),
+        0 0 20px rgba(255, 179, 71, 0.4);
+    transform: translateY(-50%);
+    animation: apertureOrbScan 8s ease-in-out infinite;
+}
+
+@keyframes apertureOrbScan {
+    0%, 100% {
+        left: 14%;
+    }
+
+    50% {
+        left: 62%;
+    }
+}
+
+.aperture-status {
+    padding: var(--space-md);
+    text-align: right;
+}
+
+.aperture-status p {
+    margin-bottom: var(--space-sm);
+}
+
+.aperture-code-stream {
+    position: relative;
+    height: 118px;
+    padding: var(--space-sm);
+    overflow: hidden;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    text-align: left;
+    color: rgba(255, 209, 122, 0.9);
+}
+
+.aperture-code-stream::before,
+.aperture-code-stream::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 28px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.aperture-code-stream::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(48, 27, 8, 1), transparent);
+}
+
+.aperture-code-stream::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(48, 27, 8, 1), transparent);
+}
+
+.aperture-code-stream span {
+    display: block;
+    animation: apertureCodeSteam 3.2s linear infinite;
+}
+
+.aperture-code-stream span:nth-child(2n) {
+    animation-duration: 2.6s;
+    opacity: 0.7;
+}
+
+.aperture-code-stream span:nth-child(3n) {
+    animation-duration: 3.8s;
+    opacity: 0.9;
+}
+
+@keyframes apertureCodeSteam {
+    0% {
+        transform: translateY(120px);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-120px);
+        opacity: 0;
+    }
+}
+
+/* Aperture Boot Sequence */
+
+.boot-output {
+    min-height: 15rem;
+    transition:
+        min-height 700ms ease,
+        max-width 700ms ease,
+        padding 700ms ease,
+        border 700ms ease,
+        background 700ms ease,
+        opacity 700ms ease;
+}
+
+.boot-output.boot-collapsed {
+    min-height: 0;
+    max-width: 520px;
+    margin-bottom: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid rgba(255, 179, 71, 0.45);
+    background: rgba(255, 146, 20, 0.08);
+}
+
+.boot-output.boot-collapsed .aperture-line {
+    display: none;
+}
+
+.boot-output.boot-collapsed .aperture-line:nth-last-child(-n + 3) {
+    display: block;
+    margin-bottom: var(--space-xs);
+    font-size: 0.9rem;
+}
+
+.terminal-locked {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.aperture-side-panel.is-loading {
+    opacity: 0;
+}
+
+.aperture-side-panel.is-online {
+    opacity: 1;
+}
+
+.aperture-side-panel.is-online,
+.aperture-side-panel.is-online .aperture-logo,
+.aperture-side-panel.is-online .aperture-status {
+    animation-name: apertureRandomFlicker;
+    animation-duration: 1200ms;
+    animation-timing-function: steps(1, end);
+    animation-fill-mode: both;
+}
+
+.aperture-side-panel.is-online {
+    animation-delay: 120ms;
+}
+
+.aperture-side-panel.is-online .aperture-logo {
+    animation-delay: 420ms;
+}
+
+.aperture-side-panel.is-online .aperture-status {
+    animation-delay: 260ms;
+}
+
+@keyframes apertureRandomFlicker {
+    0% {
+        opacity: 0;
+        filter: brightness(0.4) blur(2px);
+    }
+
+    8% {
+        opacity: 1;
+        filter: brightness(1.5) blur(0);
+    }
+
+    13% {
+        opacity: 0.15;
+    }
+
+    22% {
+        opacity: 0.85;
+    }
+
+    31% {
+        opacity: 0;
+    }
+
+    46% {
+        opacity: 1;
+        filter: brightness(1.8);
+    }
+
+    53% {
+        opacity: 0.35;
+    }
+
+    61% {
+        opacity: 1;
+    }
+
+    72% {
+        opacity: 0.2;
+    }
+
+    83% {
+        opacity: 1;
+        filter: brightness(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        filter: brightness(1) blur(0);
+    }
+}
 
 /* =====================================================
    8. RESPONSIVE
@@ -932,5 +1304,23 @@ select:focus-visible {
     .search-bar .input {
         border-right: 1px solid var(--color-border);
         margin-bottom: var(--space-sm);
+    }
+}
+
+@media (max-width: 900px) {
+    .aperture-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aperture-top-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .aperture-status {
+        text-align: left;
+    }
+
+    .aperture-shell {
+        padding: var(--space-md);
     }
 }

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - Aperture Terminal</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+</head>
+
+<body class="aperture-page">
+    <div id="navbar-container" data-root="../"></div>
+
+    <main class="aperture-shell">
+        <section class="aperture-screen">
+            <div class="aperture-grid">
+                <section class="aperture-terminal">
+                    <div id="bootOutput" class="boot-output"></div>
+
+                    <div id="terminalOutput" class="terminal-output"></div>
+
+                    <form id="terminalForm" class="terminal-form terminal-locked">
+                        <label for="terminalInput">&gt;</label>
+                        <input
+                            id="terminalInput"
+                            autocomplete="off"
+                            spellcheck="false"
+                            disabled
+                        >
+                    </form>
+                </section>
+
+                <aside id="apertureSidePanel" class="aperture-side-panel is-loading">
+                    <div class="aperture-top-strip">
+                        <div class="aperture-code-stream-panel">
+                            <div id="apertureCodeStream" class="aperture-code-stream" aria-hidden="true"></div>
+                        </div>
+
+                        <div class="aperture-system-readout">
+                            <strong>2.67</strong>
+                            <strong>1002</strong>
+                            <strong>45.6</strong>
+                        </div>
+
+                        <div class="aperture-logo" aria-hidden="true">
+                            <span class="aperture-orb"></span>
+                        </div>
+                    </div>
+
+                    <div class="aperture-status">
+                        <p>&gt;SITE STATUS: ONLINE</p>
+                        <p>&gt;PROJECTS: INDEXED</p>
+                        <p>&gt;LABS: UNSTABLE</p>
+                        <p>&gt;CAKE: UNVERIFIED</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/js/includes.js"></script>
+
+    <script>
+        const form = document.getElementById("terminalForm");
+        const input = document.getElementById("terminalInput");
+        const output = document.getElementById("terminalOutput");
+        const bootOutput = document.getElementById("bootOutput");
+        const sidePanel = document.getElementById("apertureSidePanel");
+        const codeStream = document.getElementById("apertureCodeStream");
+
+        const bootLines = [
+            "NATE&CO RESEARCH SYSTEMS",
+            "SYSTEM CHECK: INITIALISING",
+            "CSS CORE: STABLE",
+            "NAVIGATION MODULE: LINKED",
+            "LAB INDEX: UNSTABLE BUT ACCEPTABLE",
+            "PROJECT ARCHIVE: MOUNTED",
+            "APERTURE-STYLE INTERFACE: DEFINITELY LEGALLY DISTINCT",
+            "SYSTEM BOOT: COMPLETE",
+            "LAB ACCESS: GRANTED",
+            "TYPE HELP TO BEGIN"
+        ];
+
+        const codeWords = [
+            "APTR",
+            "SYS",
+            "MEMCHK",
+            "CACHE",
+            "ALLOC",
+            "AUTH",
+            "THREAD",
+            "PROC",
+            "SECTOR",
+            "RUNTIME",
+            "MODULE",
+            "KERNEL",
+            "RELAY",
+            "I/O",
+            "INDEX",
+            "VECTOR",
+            "LINK",
+            "SYNC",
+            "QUEUE",
+            "BUFFER",
+            "PACKET",
+            "VERIFY",
+            "SIGNAL",
+            "UPLINK",
+            "DOWNLINK",
+            "REBUILD",
+            "SCAN",
+            "MOUNT",
+            "ONLINE",
+            "OFFLINE",
+            "FAULT",
+            "WARNING",
+            "NATECO",
+            "LABS",
+            "ARCHIVE",
+            "GLaDOS",
+            "APERTURE",
+            "PORTAL",
+            "CORE",
+            "SUBSYS",
+            "ROUTE",
+            "PING",
+            "STACK",
+            "HEAP",
+            "FRAME",
+            "CLOCK",
+            "SERVO",
+            "OPTIC",
+            "VALVE",
+            "NODE",
+            "HASH",
+            "TOKEN",
+            "ENCRYPT",
+            "DECRYPT",
+            "TRACE",
+            "BOOT",
+            "DUMP",
+            "PATCH",
+            "LOCK",
+            "UNLOCK"
+        ];
+
+        const commands = {
+            help: `
+    AVAILABLE COMMANDS:
+    about
+    projects
+    labs
+    workshop
+    cv
+    status
+    clear
+
+    NAVIGATION:
+    open home
+    open about
+    open projects
+    open labs
+    open workshop
+    open cv
+    open style guide
+    open digital rain
+
+    UNOFFICIAL COMMANDS:
+    cake
+    glados
+    wheatley
+    disaster
+    cave johnson
+    lemons
+    johnson-nclog
+    "the cake is a lie"
+            `,
+
+            about: `
+    ABOUT:
+    Nate&Co is a digital workshop for projects, experiments,
+    tools, notes, and whatever else survives testing.
+
+    TYPE "OPEN ABOUT" TO NAVIGATE.
+            `,
+
+            projects: `
+    PROJECTS:
+    - Nate&Co Website Refactor
+    - Dungeon Game
+    - BIMP3
+    - Inventory & Pricing Automation
+
+    TYPE "OPEN PROJECTS" TO NAVIGATE.
+            `,
+
+            labs: `
+    LABS:
+    - Style Guide
+    - OSRS Stats Puller
+    - Digital Rain
+    - Aperture Terminal
+    - Fun Pages
+
+    TYPE "OPEN LABS" TO NAVIGATE.
+            `,
+
+            workshop: `
+    WORKSHOP:
+    Current status: things are being built, broken, improved,
+    and occasionally understood.
+
+    TYPE "OPEN WORKSHOP" TO NAVIGATE.
+            `,
+
+            cv: `
+    CV:
+    Python-focused developer building automation tools,
+    data workflows, web utilities, and practical systems.
+
+    TYPE "OPEN CV" TO NAVIGATE.
+            `,
+
+            status: `
+    SYSTEM STATUS:
+    Site................ONLINE
+    CSS.................STABLE
+    Navbar..............SURPRISINGLY FUNCTIONAL
+    Labs................MILDLY UNHINGED
+    Deployment..........SUCCESSFUL
+    Cake................UNVERIFIED
+            `,
+
+            cake: `
+    ERROR:
+    The cake is a lie.
+            `,
+
+            glados: `
+    PLEASE REMAIN CALM.
+    This interface is not judging you.
+    Officially.
+            `,
+
+            wheatley: `
+    Oh! Brilliant. You've found the command line.
+    That's probably fine. Probably.
+            `,
+
+            disaster: `
+    Go make some new disaster.
+    That's what I'm counting on.
+            `,
+            "the cake is a lie": `
+    [SECURITY NOTICE]
+
+    PHRASE RECOGNISED.
+
+    PLEASE REPORT TO TEST CHAMBER 17
+    FOR IMMEDIATE RE-EDUCATION.
+            `,
+            lemons: `
+    WHEN LIFE GIVES YOU LEMONS,
+    DON'T MAKE LEMONADE.
+
+    MAKE LIFE TAKE THE LEMONS BACK
+            `,
+            "johnson-nclog": `
+    [APERTURE SCIENCE ARCHIVE]
+    JOHNSON'S LOG - ENTRY 1:
+
+    FROM THE DESK OF CAVE JOHNSON
+
+    Alright, I've been told this system is now running on
+    something called "JavaScript".
+
+    Apparently it's a programming language.
+
+    Back in my day if we wanted a machine to do something,
+    we shouted at an engineer until it happened.
+
+    Now the engineers shout at the machine.
+
+    Progress.
+
+    Anyway, if you're reading this, congratulations.
+
+    You've successfully accessed a terminal that serves
+    absolutely no practical purpose whatsoever.
+
+    That's the kind of innovation I like to see.
+
+    Carry on.
+            `
+
+        };
+
+        const routes = {
+            "open home": "../index.html",
+            "open about": "../about.html",
+            "open projects": "../projects.html",
+            "open labs": "../labs.html",
+            "open workshop": "../workshop.html",
+            "open cv": "../online-cv.html",
+            "open style guide": "style-guide.html",
+            "open digital rain": "digital-rain.html"
+        };
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function randomHex() {
+            return Math.floor(Math.random() * 65535)
+                .toString(16)
+                .toUpperCase()
+                .padStart(4, "0");
+        }
+
+        function getRandomCodeWord() {
+            return codeWords[Math.floor(Math.random() * codeWords.length)];
+        }
+
+        function generateCodeEntry() {
+            const type = Math.floor(Math.random() * 6);
+
+            switch (type) {
+                case 0:
+                    return getRandomCodeWord();
+
+                case 1:
+                    return `${getRandomCodeWord()}-${randomHex()}`;
+
+                case 2:
+                    return `${randomHex()}:${randomHex()}`;
+
+                case 3:
+                    return `${getRandomCodeWord()}.${Math.floor(Math.random() * 9999)}`;
+
+                case 4:
+                    return `[${getRandomCodeWord()}] ${randomHex()}`;
+
+                default:
+                    return `${getRandomCodeWord()}::${getRandomCodeWord()}`;
+            }
+        }
+
+        function populateCodeStream() {
+            if (!codeStream) return;
+
+            codeStream.innerHTML = "";
+
+            for (let i = 0; i < 34; i++) {
+                const line = document.createElement("span");
+
+                line.textContent = generateCodeEntry();
+                line.style.animationDuration = `${2.5 + Math.random() * 3.5}s`;
+                line.style.animationDelay = `${Math.random() * -6}s`;
+
+                codeStream.appendChild(line);
+            }
+        }
+
+        function refreshRandomCodeEntry() {
+            if (!codeStream) return;
+
+            const entries = codeStream.querySelectorAll("span");
+
+            if (!entries.length) return;
+
+            const randomEntry = entries[Math.floor(Math.random() * entries.length)];
+
+            randomEntry.textContent = generateCodeEntry();
+        }
+
+        async function typeLine(text, target, speed = 28) {
+            const line = document.createElement("p");
+            line.className = "aperture-line";
+            target.appendChild(line);
+
+            for (const char of text) {
+                line.textContent += char;
+                await sleep(speed);
+            }
+        }
+
+        function printBlock(text) {
+            const block = document.createElement("pre");
+            block.textContent = text.trim();
+            output.appendChild(block);
+            block.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
+
+        function printCommand(command) {
+            const line = document.createElement("p");
+            line.className = "terminal-command";
+            line.textContent = `> ${command}`;
+            output.appendChild(line);
+        }
+
+        function lockTerminal() {
+            input.disabled = true;
+            form.classList.add("terminal-locked");
+        }
+
+        function unlockTerminal() {
+            input.disabled = false;
+            form.classList.remove("terminal-locked");
+            input.focus();
+        }
+
+        async function bootSystem() {
+            lockTerminal();
+            populateCodeStream();
+
+            for (const line of bootLines) {
+                await typeLine(line, bootOutput);
+                await sleep(180);
+            }
+
+            await sleep(500);
+
+            bootOutput.classList.add("boot-collapsed");
+
+            await sleep(500);
+
+            sidePanel.classList.remove("is-loading");
+            sidePanel.classList.add("is-online");
+
+            await sleep(900);
+
+            unlockTerminal();
+
+            setInterval(refreshRandomCodeEntry, 2000);
+        }
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+
+            const command = input.value.trim().toLowerCase();
+            input.value = "";
+
+            if (!command || input.disabled) return;
+
+            printCommand(command);
+
+            if (command === "clear") {
+                output.innerHTML = "";
+                return;
+            }
+
+            if (routes[command]) {
+                printBlock(`OPENING ${routes[command]}...`);
+
+                setTimeout(() => {
+                    window.location.href = routes[command];
+                }, 350);
+
+                return;
+            }
+
+            if (commands[command]) {
+                printBlock(commands[command]);
+                return;
+            }
+
+            printBlock(`
+    UNKNOWN COMMAND:
+    ${command}
+
+    TYPE "HELP" FOR AVAILABLE COMMANDS.
+            `);
+        });
+
+        document.addEventListener("click", () => {
+            if (!input.disabled) {
+                input.focus();
+            }
+        });
+
+        window.addEventListener("load", bootSystem);
+    </script>
+</body>
+</html>
