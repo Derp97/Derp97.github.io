@@ -3,110 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nate&Co - Index</title>
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="/assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
-    <style>
-        html, body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Roboto", sans-serif;
-        }
-        
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #f3f3f3, #555, #131313, #ffffff);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s ease infinite;
-        }
-        
-        .banner {
-            background-color: teal;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: teal;
-            padding: 10px 20px;
-        }
-        
-        .navbar img {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            transition: 0.3s;
-        }
-        
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-        }
-        
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-        
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            display: block;
-            text-decoration: none;
-        }
-        
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-        
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <div id="navbar-container"></div>
-    <script>
-        fetch("components/navbar.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("navbar-container").innerHTML = data)
-            .catch(error => console.error("Error loading navbar:", error));
-    </script>
-    <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+    <title>Nate&Co - Digital Workshop</title>
 
-        <!-- The Grid -->
-        <div class="w3-row-padding">
-            <div class="w3-container w3-card w3-white w3-margin-bottom">
-                <div class="w3-display-container">
-                    <p> Welcome to Nate & Co </p>
-                    <hr>
-                    <p> I emplore you to click around 😜</p>
-            </div>      
-        <!-- End Grid -->
-        </div>
-        
-        <!-- End Page Container -->
-    </div>
+    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="icon" href="assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root=""></div>
+
+    <main class="page">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Welcome to Nate&Co</p>
+
+            <h1>Software, experiments, projects, and slightly chaotic curiosity.</h1>
+
+            <p class="text-muted">
+                This is my digital workshop — a place for web experiments, automation projects,
+                browser games, technical notes, and whatever else I decide to build next.
+            </p>
+
+            <div class="button-row">
+                <a class="button button-primary" href="projects.html">View Projects</a>
+                <a class="button button-secondary" href="labs.html">Explore Labs</a>
+            </div>
+        </section>
+
+        <section class="grid grid-3 section">
+            <article class="card feature-card">
+                <span class="badge">Builds</span>
+                <h2>Projects</h2>
+                <p class="text-muted">
+                    More complete pieces of work, from web tools to games and automation systems.
+                </p>
+                <a href="projects.html">See current projects →</a>
+            </article>
+
+            <article class="card feature-card">
+                <span class="badge">Experiments</span>
+                <h2>Labs</h2>
+                <p class="text-muted">
+                    Small tools, prototypes, odd ideas, and things built because curiosity won.
+                </p>
+                <a href="labs.html">Go exploring →</a>
+            </article>
+
+            <article class="card feature-card">
+                <span class="badge">Profile</span>
+                <h2>CV</h2>
+                <p class="text-muted">
+                    A more professional look at my skills, experience, and development path.
+                </p>
+                <a href="online-cv.html">View CV →</a>
+            </article>
+        </section>
+
+        <section class="grid grid-2 section">
+            <article class="card">
+                <h2>Currently shaping this site into something better.</h2>
+                <p>
+                    Nate&Co is being rebuilt from a collection of pages into a more coherent
+                    personal site with its own CSS system, reusable layouts, and a stronger identity.
+                </p>
+                <p class="text-muted">
+                    The goal is simple: make it feel like a place worth clicking around.
+                </p>
+            </article>
+
+            <article class="card">
+                <h2>Test bed</h2>
+                <p class="font-test">
+                    Regular text, <span class="weight-500">Medium text</span>,
+                    <span class="weight-600">SemiBold text</span>,
+                    <span class="weight-700">Bold text</span>,
+                    and <em>Italic text</em>.
+                </p>
+
+                <div class="button-row">
+                    <span class="badge">Badge</span>
+                    <button class="button button-primary">Primary</button>
+                    <button class="button button-secondary">Secondary</button>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="assets/js/includes.js"></script>
 </body>
 </html>

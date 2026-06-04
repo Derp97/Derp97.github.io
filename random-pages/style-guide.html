@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - Style Guide</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root="../"></div>
+
+    <main class="page">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Design System</p>
+            <h1>Nate&Co Style Guide</h1>
+            <p class="text-muted">
+                A permanent testing ground for typography, buttons, cards, badges, forms, layout, and reusable site components.
+            </p>
+        </section>
+
+        <section class="card section">
+            <h2>Typography</h2>
+            <h1>Heading One</h1>
+            <h2>Heading Two</h2>
+            <h3>Heading Three</h3>
+            <p>Regular paragraph text using Inter 400.</p>
+            <p class="text-muted">Muted paragraph text for supporting information.</p>
+            <p>
+                <span class="weight-500">Medium 500</span>,
+                <span class="weight-600">SemiBold 600</span>,
+                <span class="weight-700">Bold 700</span>,
+                and <em>italic text</em>.
+            </p>
+        </section>
+
+        <section class="card section">
+            <h2>Buttons</h2>
+            <div class="button-row">
+                <a class="button button-primary" href="javascript:void(0)">Primary Button</a>
+                <a class="button button-secondary" href="javascript:void(0)">Secondary Button</a>
+                <button class="button button-primary">Real Button</button>
+            </div>
+        </section>
+
+        <section class="card section">
+            <h2>Badges</h2>
+            <div class="tag-row">
+                <span class="badge">Active</span>
+                <span class="badge">Archived</span>
+                <span class="badge">Lab</span>
+                <span class="badge">Tool</span>
+                <span class="badge">Experimental</span>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Cards</h2>
+            <div class="grid grid-3">
+                <article class="card">
+                    <span class="badge">Standard</span>
+                    <h3>Basic Card</h3>
+                    <p class="text-muted">A reusable content block for most page sections.</p>
+                </article>
+
+                <article class="card project-card">
+                    <span class="badge">Project</span>
+                    <h3>Project Card</h3>
+                    <p class="text-muted">Used for larger pieces of work with tags and links.</p>
+                    <div class="tag-row">
+                        <span class="badge">HTML</span>
+                        <span class="badge">CSS</span>
+                    </div>
+                    <a href="javascript:void(0)">Open project →</a>
+                </article>
+
+                <article class="card lab-card">
+                    <span class="badge">Lab</span>
+                    <h3>Lab Card</h3>
+                    <p class="text-muted">Used for experiments, tools, and playful pages.</p>
+                    <a href="javascript:void(0)">Open lab →</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="card section">
+            <h2>Forms</h2>
+            <div class="search-bar">
+                <input class="input" type="text" placeholder="Example input...">
+                <button class="button button-primary">Submit</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Grid Layouts</h2>
+
+            <div class="grid grid-2 section">
+                <article class="card">
+                    <h3>Grid 2</h3>
+                    <p class="text-muted">Two-column layout on desktop, single-column on mobile.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Grid 2</h3>
+                    <p class="text-muted">Useful for paired content blocks.</p>
+                </article>
+            </div>
+
+            <div class="grid grid-3">
+                <article class="card">
+                    <h3>Grid 3</h3>
+                    <p class="text-muted">Three-column card layout.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Grid 3</h3>
+                    <p class="text-muted">Used heavily by Projects and Labs.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Grid 3</h3>
+                    <p class="text-muted">Collapses neatly on smaller screens.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="card section">
+            <h2>CV / Timeline Blocks</h2>
+
+            <div class="cv-entry">
+                <div class="cv-entry-header">
+                    <h3>Example Entry</h3>
+                    <span class="badge">2026</span>
+                </div>
+                <p class="text-muted">
+                    Used for CV experience, build log entries, and timeline-style content.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <article class="timeline-item">
+                    <span class="badge">Now</span>
+                    <h3>Timeline Item</h3>
+                    <p class="text-muted">Used on the Workshop page for build log entries.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="card section">
+            <h2>Colour Swatches</h2>
+
+            <div class="style-swatch-grid">
+                <div class="style-swatch">
+                    <span class="style-swatch-colour swatch-primary"></span>
+                    <strong>Primary</strong>
+                    <small>--color-primary</small>
+                </div>
+
+                <div class="style-swatch">
+                    <span class="style-swatch-colour swatch-surface"></span>
+                    <strong>Surface</strong>
+                    <small>--color-surface</small>
+                </div>
+
+                <div class="style-swatch">
+                    <span class="style-swatch-colour swatch-muted"></span>
+                    <strong>Muted</strong>
+                    <small>--color-surface-muted</small>
+                </div>
+
+                <div class="style-swatch">
+                    <span class="style-swatch-colour swatch-text"></span>
+                    <strong>Text</strong>
+                    <small>--color-text</small>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/js/includes.js"></script>
+</body>
+</html>

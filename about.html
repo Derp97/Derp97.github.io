@@ -4,107 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nate&Co - About</title>
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="/assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
-    <style>
-        html, body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Roboto", sans-serif;
-        }
-        
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #f3f3f3, #555, #131313, #ffffff);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s ease infinite;
-        }
-        
-        .banner {
-            background-color: teal;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: teal;
-            padding: 10px 20px;
-        }
-        
-        .navbar img {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            transition: 0.3s;
-        }
-        
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-        }
-        
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-        
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            display: block;
-            text-decoration: none;
-        }
-        
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-        
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <div id="navbar-container"></div>
-    <script>
-        fetch("components/navbar.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("navbar-container").innerHTML = data)
-            .catch(error => console.error("Error loading navbar:", error));
-    </script>
-    <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px;">
 
-        <!-- The Grid -->
-        <div class="w3-row-padding">
-            <div class="w3-container w3-card w3-white w3-margin-bottom">
-                <div class="w3-display-container">
-                    <p> This was made as an experiment and proof of concept
-            </div>      
-        <!-- End Grid -->
-        </div>
-        
-        <!-- End Page Container -->
-    </div>
+    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="icon" href="assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root=""></div>
+
+    <main class="page">
+        <section class="card section about-hero">
+            <p class="eyebrow">About Nate&Co</p>
+
+            <h1>A personal website, digital workshop, and place to build things.</h1>
+
+            <p class="text-muted">
+                Nate&Co is my personal corner of the web — part portfolio, part project archive,
+                and part testing ground for ideas I want to explore properly.
+            </p>
+
+            <p class="font-test">
+                Regular, <span class="weight-500">Medium</span>,
+                <span class="weight-600">SemiBold</span>,
+                <span class="weight-700">Bold</span>,
+                and <em>Italic</em>.
+            </p>
+        </section>
+
+        <section class="grid grid-2 section">
+            <article class="card">
+                <h2>What this site is</h2>
+                <p>
+                    This site started as an experiment and proof of concept, but it is gradually
+                    becoming a more structured home for my projects, learning, and technical ideas.
+                </p>
+                <p>
+                    It brings together web experiments, small tools, project pages, and work-in-progress
+                    ideas under one simple static website.
+                </p>
+            </article>
+
+            <article class="card">
+                <h2>What I build</h2>
+                <p>
+                    I enjoy building practical software that solves real problems, especially around
+                    automation, data handling, web development, and small self-hosted systems.
+                </p>
+                <p>
+                    Some projects are serious, some are playful, but most exist because I wanted to
+                    understand how something works by building it myself.
+                </p>
+            </article>
+        </section>
+
+        <section class="card section">
+            <h2>The longer-term idea</h2>
+            <p>
+                The goal is for this site to become a digital workshop: somewhere I can document
+                what I am learning, showcase finished projects, host small experiments, and keep
+                track of the systems I build over time.
+            </p>
+            <p>
+                Rather than being a static portfolio that rarely changes, I want it to grow alongside
+                my skills and reflect the journey from small experiments into more complete,
+                well-structured projects.
+            </p>
+        </section>
+
+        <section class="grid grid-3 section">
+            <article class="card">
+                <h3>Projects</h3>
+                <p class="text-muted">
+                    More complete pieces of work with a clear purpose, structure, and outcome.
+                </p>
+            </article>
+
+            <article class="card">
+                <h3>Labs</h3>
+                <p class="text-muted">
+                    Smaller experiments, prototypes, tools, and ideas that are still evolving.
+                </p>
+            </article>
+
+            <article class="card">
+                <h3>CV</h3>
+                <p class="text-muted">
+                    A professional overview of my experience, skills, and development path.
+                </p>
+            </article>
+        </section>
+
+        <section class="card section text-center">
+            <h2>Still under construction</h2>
+            <p class="text-muted">
+                This site is intentionally a work in progress. The aim is not perfection from day one,
+                but steady improvement, cleaner structure, and better projects over time.
+            </p>
+
+            <a class="button button-primary" href="projects.html">View Current Projects</a>
+        </section>
+    </main>
+
+    <script src="assets/js/includes.js"></script>
 </body>
 </html>

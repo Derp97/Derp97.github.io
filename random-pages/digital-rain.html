@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - Digital Rain</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png" sizes="32x32" type="image/png">
+</head>
+
+<body class="digital-rain-page">
+    <div id="navbar-container" data-root="../"></div>
+
+    <canvas id="digitalRainCanvas" class="digital-rain-canvas"></canvas>
+
+    <main id="digitalRainHud" class="page digital-rain-content">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Visual Lab</p>
+
+            <h1>Digital Rain</h1>
+
+            <p class="text-muted">
+                A Matrix-inspired canvas experiment using falling characters,
+                opacity trails, and a lightweight animation loop.
+            </p>
+
+            <div class="button-row">
+                <button id="toggleRainBtn" class="button button-primary">
+                    Pause Rain
+                </button>
+
+                <button id="toggleHudBtn" class="button button-secondary">
+                    Hide HUD
+                </button>
+
+                <a class="button button-secondary" href="../labs.html">
+                    Back to Labs
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <button id="hudHint" class="hud-hint" type="button">
+        Press H to toggle HUD
+    </button>
+
+    <script src="../assets/js/includes.js"></script>
+
+    <script>
+        const canvas = document.getElementById("digitalRainCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const toggleRainBtn = document.getElementById("toggleRainBtn");
+        const toggleHudBtn = document.getElementById("toggleHudBtn");
+        const hud = document.getElementById("digitalRainHud");
+        const hudHint = document.getElementById("hudHint");
+
+        const characters = "アイウエオカキクケコサシスセソ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 18;
+
+        let columns = 0;
+        let drops = [];
+        let isRunning = true;
+        let animationFrameId = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array.from(
+                { length: columns },
+                () => Math.floor(Math.random() * canvas.height / fontSize)
+            );
+        }
+
+        function drawRain() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00ff9c";
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+
+            if (isRunning) {
+                animationFrameId = requestAnimationFrame(drawRain);
+            }
+        }
+
+        function startRain() {
+            if (isRunning) return;
+
+            isRunning = true;
+            toggleRainBtn.textContent = "Pause Rain";
+            drawRain();
+        }
+
+        function pauseRain() {
+            isRunning = false;
+            toggleRainBtn.textContent = "Resume Rain";
+
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        }
+
+        function toggleHud() {
+            hud.classList.toggle("hud-hidden");
+
+            const hudIsHidden = hud.classList.contains("hud-hidden");
+
+            toggleHudBtn.textContent = hudIsHidden
+                ? "Show HUD"
+                : "Hide HUD";
+        }
+
+        toggleRainBtn.addEventListener("click", () => {
+            if (isRunning) {
+                pauseRain();
+            } else {
+                startRain();
+            }
+        });
+
+        toggleHudBtn.addEventListener("click", toggleHud);
+        hudHint.addEventListener("click", toggleHud);
+
+        document.addEventListener("keydown", event => {
+            if (event.key.toLowerCase() === "h") {
+                toggleHud();
+            }
+        });
+
+        window.addEventListener("resize", resizeCanvas);
+
+        resizeCanvas();
+        drawRain();
+    </script>
+</body>
+</html>

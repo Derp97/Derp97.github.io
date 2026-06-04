@@ -1,134 +1,19 @@
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    #navbar-container {
-        width: 100%;
-        background-color: teal;
-        padding: 10px 20px;
-        box-sizing: border-box;
-    }
-
-    .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: teal;
-        padding: 10px 20px;
-        width: 100%;
-        box-sizing: border-box;
-        flex-wrap: wrap;
-    }
-
-    .navbar img {
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
-    }
-
-    .nav-links {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .nav-links a {
-        color: white;
-        text-decoration: none;
-        padding: 8px 15px;
-        transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        right: 0;
-        background-color: white;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-        z-index: 1;
-        width: 100%;
-        left: 0;
-    }
-
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        display: block;
-        text-decoration: none;
-    }
-
-    .dropdown-content a:hover {
-        background-color: #ddd;
-    }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* Mobile Adjustments */
-    @media (max-width: 768px) {
-        .navbar {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 10px;
-        }
-
-        .nav-links {
-            width: 100%;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .nav-links a {
-            padding: 12px;
-            width: 100%;
-            text-align: left;
-        }
-
-        .dropdown button {
-            width: 100%;
-        }
-
-        .dropdown-content {
-            left: 0;
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .dropdown button {
-            width: 100%;
-        }
-    }
-</style>
-
 <nav class="navbar">
-    <img src="../assets/imgs/logo.png" alt="https://via.placeholder.com/50">
+    <a class="navbar-brand" data-href="index.html">
+        <img data-src="assets/imgs/logo.png" alt="Nate&Co logo">
+    </a>
 
-    <div class="nav-links">
-        <a href="/home.html">Home</a>
-        <a href="/about.html">About</a>
-        <a href="/random-pages-index.html">Random Pages</a>
-        <a href="/online-cv.html">Online CV</a>
-    </div>
+    <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+        ☰
+    </button>
 
-    <div class="dropdown">
-        <button class="w3-button w3-teal">Menu ▼</button>
-        <div class="dropdown-content">
-            <a href="/projects-current.html">Current Projects</a>
-            <a href="/projects-depreciated.html">Old Projects</a>
-            <a href="/generic-dungeon-game-v1/index.html">V1 Dungeon Game</a>
-            <a href="#">This one goes nowhere... 🤞</a>
-        </div>
+    <div class="nav-links" id="nav-links">
+        <a data-href="index.html">Home</a>
+        <a data-href="about.html">About</a>
+        <a data-href="labs.html">Labs</a>
+        <a data-href="online-cv.html">Online CV</a>
+        <a data-href="projects.html">Projects</a>
+        <a data-href="workshop.html">Workshop</a>
+        <a data-href="generic-dungeon-game-v1/index.html">Dungeon Game</a>
     </div>
 </nav>
