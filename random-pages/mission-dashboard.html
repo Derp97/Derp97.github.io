@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Dashboard</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root="../"></div>
+
+    <main class="page">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Mission Dashboard</p>
+
+            <h1>Space data, weather signals, and live mission-style information.</h1>
+
+            <p class="text-muted">
+                A live dashboard experiment pulling public data from APIs.
+                Starting with NASA Astronomy Picture of the Day, with more modules planned.
+            </p>
+        </section>
+
+        <section class="grid grid-2 section">
+            <article class="card mission-module">
+                <div class="module-header">
+                    <span class="badge">NASA APOD</span>
+                    <h2>Astronomy Picture of the Day</h2>
+                </div>
+
+                <div class="async-image-frame">
+                    <div class="async-image-loader">
+                        <div class="async-image-spinner"></div>
+                        <p>Contacting NASA...</p>
+                    </div>
+
+                    <img
+                        id="apod-image"
+                        class="async-image"
+                        alt="NASA Astronomy Picture of the Day"
+                    >
+                </div>
+
+                <div id="apod-info" class="module-info"></div>
+            </article>
+
+            <article class="card mission-module">
+                <div class="module-header">
+                    <span class="badge">Weather</span>
+                    <h2>Today’s Weather</h2>
+                </div>
+
+                <div id="missionWeather" class="mission-weather-card">
+                    <p class="text-muted">Receiving weather telemetry...</p>
+                </div>
+
+                <a href="weather-dashboard.html">
+                    Open detailed weather dashboard →
+                </a>
+            </article>
+        </section>
+
+        <section class="grid grid-3 section">
+            <article class="card mission-module">
+                <span class="badge">Space Weather</span>
+                <h3>Solar Activity</h3>
+                <p class="text-muted">
+                    Planned module for solar flares, geomagnetic activity, and space weather alerts.
+                </p>
+            </article>
+
+            <article class="card mission-module">
+                <span class="badge">Near Earth</span>
+                <h3>Asteroids</h3>
+                <p class="text-muted">
+                    Planned module for near-earth object data and close approaches.
+                </p>
+            </article>
+
+            <article class="card mission-module">
+                <span class="badge">Telemetry</span>
+                <h3>System Feed</h3>
+                <p class="text-muted">
+                    Planned module for status messages, timestamps, and dashboard diagnostics.
+                </p>
+            </article>
+        </section>
+    </main>
+
+    <script src="../assets/js/includes.js"></script>
+    <script src="../assets/js/async-image.js"></script>
+
+    <script>
+        async function loadAPOD() {
+            const apodInfo = document.getElementById("apod-info");
+
+            try {
+                const response = await fetch(
+                    "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+                );
+
+                if (!response.ok) {
+                    throw new Error("NASA API request failed");
+                }
+
+                const data = await response.json();
+
+                if (data.media_type === "image") {
+                    loadAsyncImage({
+                        imageId: "apod-image",
+                        imageUrl: data.url,
+                        loaderText: "Receiving NASA image..."
+                    });
+                } else {
+                    const frame = document
+                        .getElementById("apod-image")
+                        .closest(".async-image-frame");
+
+                    frame.innerHTML = `
+                        <iframe
+                            class="mission-video"
+                            src="${data.url}"
+                            title="${data.title}"
+                            allowfullscreen>
+                        </iframe>
+                    `;
+                }
+
+                apodInfo.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p class="text-muted">${data.date}</p>
+                    <p>${data.explanation}</p>
+                `;
+            } catch (error) {
+                console.error(error);
+
+                const frame = document
+                    .getElementById("apod-image")
+                    .closest(".async-image-frame");
+
+                frame.innerHTML = `
+                    <div class="module-placeholder">
+                        <p class="text-muted">
+                            NASA data could not be loaded right now.
+                        </p>
+                    </div>
+                `;
+
+                apodInfo.innerHTML = "";
+            }
+        }
+
+        loadAPOD();
+    </script>
+    <script>
+    async function loadMissionWeather(latitude = 53.3811, longitude = -1.4701, label = "Sheffield, UK") {
+        const weatherBox = document.getElementById("missionWeather");
+
+        function weatherCodeToText(code) {
+            const codes = {
+                0: "Clear sky",
+                1: "Mainly clear",
+                2: "Partly cloudy",
+                3: "Overcast",
+                45: "Fog",
+                51: "Light drizzle",
+                53: "Moderate drizzle",
+                55: "Dense drizzle",
+                61: "Slight rain",
+                63: "Moderate rain",
+                65: "Heavy rain",
+                80: "Rain showers",
+                95: "Thunderstorm"
+            };
+
+            return codes[code] || "Unknown";
+        }
+
+        try {
+            const url = new URL("https://api.open-meteo.com/v1/forecast");
+
+            url.search = new URLSearchParams({
+                latitude,
+                longitude,
+                current: [
+                    "temperature_2m",
+                    "apparent_temperature",
+                    "precipitation",
+                    "weather_code",
+                    "wind_speed_10m",
+                    "cloud_cover"
+                ].join(","),
+                timezone: "auto"
+            });
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error("Weather request failed");
+            }
+
+            const data = await response.json();
+            const current = data.current;
+
+            weatherBox.innerHTML = `
+                <p class="eyebrow">${label}</p>
+
+                <div class="mission-weather-main">
+                    <strong>${Math.round(current.temperature_2m)}°C</strong>
+                    <span>${weatherCodeToText(current.weather_code)}</span>
+                </div>
+
+                <div class="mission-weather-grid">
+                    <div>
+                        <span>Feels</span>
+                        <strong>${Math.round(current.apparent_temperature)}°C</strong>
+                    </div>
+
+                    <div>
+                        <span>Wind</span>
+                        <strong>${Math.round(current.wind_speed_10m)} km/h</strong>
+                    </div>
+
+                    <div>
+                        <span>Cloud</span>
+                        <strong>${current.cloud_cover}%</strong>
+                    </div>
+
+                    <div>
+                        <span>Rain</span>
+                        <strong>${current.precipitation} mm</strong>
+                    </div>
+                </div>
+            `;
+        } catch (error) {
+            console.error(error);
+
+            weatherBox.innerHTML = `
+                <p class="text-muted">Weather telemetry unavailable.</p>
+            `;
+        }
+    }
+
+    loadMissionWeather();
+    </script>
+</body>
+</html>

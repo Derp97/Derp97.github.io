@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - Weather Dashboard</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root="../"></div>
+
+    <main class="page">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Weather Dashboard</p>
+            <h1>Detailed weather, split by day and visualised by hour.</h1>
+            <p class="text-muted">
+                Select a day, then use the chart legend to toggle weather layers on and off.
+            </p>
+
+            <div class="button-row">
+                <button id="useLocationBtn" class="button button-primary">Use My Location</button>
+                <button id="defaultLocationBtn" class="button button-secondary">Sheffield Default</button>
+            </div>
+        </section>
+
+        <section class="card section">
+            <div id="weatherStatus" class="module-placeholder">
+                <p class="text-muted">Receiving weather telemetry...</p>
+            </div>
+
+            <div id="weatherDashboard" class="weather-dashboard hidden">
+                <section id="currentWeather" class="weather-current-panel"></section>
+
+                <section>
+                    <h2>7 Day Forecast</h2>
+                    <div id="dailyForecast" class="weather-day-grid"></div>
+                </section>
+
+                <section class="weather-graph-section">
+                    <div class="weather-graph-header">
+                        <div>
+                            <p class="eyebrow">Selected Day</p>
+                            <h2 id="selectedDayTitle">Hourly Breakdown</h2>
+                        </div>
+                    </div>
+
+                    <div class="weather-chart-wrap">
+                        <canvas id="weatherChart"></canvas>
+                    </div>
+
+                    <div id="selectedDayStats" class="weather-stat-grid"></div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/js/includes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/weather-dashboard.js"></script>
+</body>
+</html>
