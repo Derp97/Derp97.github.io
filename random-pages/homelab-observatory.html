@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - The Observatory</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root="../"></div>
+
+    <main class="page">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Labs / Raspberry Pi Build</p>
+            <h1>The Observatory</h1>
+            <p class="text-muted">
+                A wall-mounted, local-first Raspberry Pi system designed to provide daily perspective,
+                notes, reflection, astronomy data, motion wake, voice interaction and ambient information.
+            </p>
+        </section>
+
+        <section class="grid grid-2 section">
+            <article class="card">
+                <h2>Project Summary</h2>
+                <p>
+                    The Observatory is a physical dashboard appliance built around a Raspberry Pi 5.
+                    It is intended to live on the wall, wake when movement is detected, and provide a calm
+                    interface for perspective, journaling, notes and daily information.
+                </p>
+            </article>
+
+            <article class="card">
+                <h2>Core Aim</h2>
+                <p>
+                    Not another distracting screen. The goal is to build something useful, grounding and
+                    personal: a quiet daily touchpoint that helps me zoom out, capture thoughts and track
+                    meaningful progress over time.
+                </p>
+            </article>
+        </section>
+
+        <section class="card section">
+            <h2>Hardware Build List</h2>
+
+            <div class="hardware-grid">
+                <article class="hardware-item owned">
+                    <div>
+                        <p class="eyebrow">Pi</p>
+                        <h3>Raspberry Pi 5 16GB</h3>
+                        <p>Main brain of the system.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Owned</span>
+                        <strong>£0</strong>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Display</p>
+                        <h3>Verbatim PMT-15 4K Portable Touchscreen Monitor</h3>
+                        <p>Wall-mounted touchscreen interface.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£230</strong>
+                        <a href="https://www.scan.co.uk/products/156-verbatim-pmt-15-4k-touchscreen-portable-monitor-ips-3840x2160-6ms-60hz-10001-350cd-m-hdmi-usb-c" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Storage</p>
+                        <h3>Integral V Series 512GB SATA III 2.5&quot; Internal SSD</h3>
+                        <p>Reliable local storage for notes, database, logs and media.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£35-£85</strong>
+                        <a href="https://cpc.farnell.com/integral/inssd512gs625v2p/ssd-v-series-plus-2-5-sata6gb/dp/CS38074" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">SSD Enclosure</p>
+                        <h3>BENFEI 2.5&quot; SATA to USB Enclosure</h3>
+                        <p>Connects the SATA SSD to the Raspberry Pi over USB.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£8-£12</strong>
+                        <a href="https://www.amazon.co.uk/BENFEI-External-Enclosure-Optimized-Support-Schwarz/dp/B0DNXMWKSY" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Cooling</p>
+                        <h3>Raspberry Pi Active Cooler</h3>
+                        <p>24/7 thermal stability.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£5-£10</strong>
+                        <a href="https://cpc.farnell.com/raspberry-pi/sc1148/raspberry-pi-5-active-cooler/dp/SC20200" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Camera</p>
+                        <h3>Raspberry Pi Camera Module 3 Wide</h3>
+                        <p>Face detection, presence sensing and future vision features.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£30-£40</strong>
+                        <a href="https://thepihut.com/products/raspberry-pi-camera-module-3" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Motion</p>
+                        <h3>HC-SR501 PIR Motion Sensor Module</h3>
+                        <p>Wakes the display when movement is detected.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£3-£8</strong>
+                        <a href="https://www.switchelectronics.co.uk/products/pyroelectric-infrared-pir-motion-sensor-module-hc-sr501" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Microphone</p>
+                        <h3>TONOR Conference USB Microphone</h3>
+                        <p>Voice commands and future speech-to-text capture.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£25-£35</strong>
+                        <a href="https://www.amazon.co.uk/TONOR-Conference-Microphone-Omnidirectional-Microphones/dp/B07GVGMW59" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Speakers</p>
+                        <h3>Trust Ador 2.0 Speaker Set</h3>
+                        <p>Audio prompts, greetings and spoken responses.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£13-£20</strong>
+                        <a href="https://www.argos.co.uk/product/7861163" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Keyboard</p>
+                        <h3>Industrial USB Keyboard with Integrated Touchpad</h3>
+                        <p>Compact wired input for notes, setup and maintenance.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>Planned</span>
+                        <strong>~£30-£80</strong>
+                        <a href="https://www.amazon.co.uk/Aboiled-Durability-Industrial-Integrated-Trackball/dp/B0GKNRMD4V" target="_blank" rel="noopener noreferrer">View</a>
+                    </div>
+                </article>
+
+                <article class="hardware-item">
+                    <div>
+                        <p class="eyebrow">Mounting</p>
+                        <h3>VESA Mount or Custom Wall Frame</h3>
+                        <p>Permanent wall-mounted installation.</p>
+                    </div>
+                    <div class="hardware-meta">
+                        <span>To Decide</span>
+                        <strong>~£15-£50</strong>
+                    </div>
+                </article>
+                <article class="hardware-item hardware-total">
+                    <div>
+                        <p class="eyebrow">Estimated Total</p>
+                        <h3>Remaining Build Cost</h3>
+                        <p>Estimated cost range excluding the already-owned Raspberry Pi 5 16GB.</p>
+                    </div>
+
+                    <div class="total-costs">
+                        <div>
+                            <span>Minimum</span>
+                            <strong>~£404</strong>
+                        </div>
+
+                        <div>
+                            <span>Maximum</span>
+                            <strong>~£550</strong>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <p class="text-muted">
+                Prices are rough estimates and may change. The display and keyboard are the most important physical usability decisions.
+            </p>
+        </section>
+
+        <section class="card section">
+            <h2>Build Progress</h2>
+            <p class="text-muted">
+                The Observatory is being built in staged phases, moving from concept and planning through to hardware assembly and software development.
+            </p>
+
+            <div class="phase-grid">
+                <article class="phase-card phase-complete">
+                    <span>Phase 01</span>
+                    <h3>Planning</h3>
+                    <p>Define the purpose, hardware approach, wall-mounted layout, feature set and project direction.</p>
+                </article>
+
+                <article class="phase-card phase-active">
+                    <span>Phase 02</span>
+                    <h3>Acquiring</h3>
+                    <p>Source the display, storage, camera, sensors, audio hardware, keyboard and mounting components.</p>
+                </article>
+
+                <article class="phase-card">
+                    <span>Phase 03</span>
+                    <h3>Building</h3>
+                    <p>Assemble the Raspberry Pi, screen, cooling, storage, PIR sensor, camera, microphone and speakers.</p>
+                </article>
+
+                <article class="phase-card">
+                    <span>Phase 04</span>
+                    <h3>Programming</h3>
+                    <p>Build the React interface, FastAPI backend, local database, kiosk mode, hardware services and automation.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="grid grid-3 section">
+            <article class="card">
+                <h2>Frontend</h2>
+                <p>React, TypeScript and Vite powering a full-screen kiosk interface.</p>
+            </article>
+
+            <article class="card">
+                <h2>Backend</h2>
+                <p>Python and FastAPI serving local data, notes, hardware events and API responses.</p>
+            </article>
+
+            <article class="card">
+                <h2>Database</h2>
+                <p>SQLite for local notes, journal entries, future letters and personal history.</p>
+            </article>
+        </section>
+
+        <section class="card section">
+            <h2>System Architecture</h2>
+            <pre><code>Raspberry Pi 5
+│
+├── Chromium Kiosk Mode
+│   └── React Touchscreen UI
+│
+├── FastAPI Backend
+│   ├── Notes API
+│   ├── Journal API
+│   ├── Perspective Cards
+│   └── Weather / Astronomy API Pulls
+│
+├── SQLite Database
+│   ├── Notes
+│   ├── Journal Entries
+│   ├── Future Letters
+│   └── Build Logs
+│
+└── Hardware Services
+    ├── PIR Wake Detection
+    ├── Camera / Face Detection
+    ├── Voice Commands
+    └── Audio Output</code></pre>
+        </section>
+
+        <section class="grid grid-2 section">
+            <article class="card">
+                <h2>V1 Features</h2>
+                <ul>
+                    <li>Wall-mounted touchscreen interface</li>
+                    <li>Ambient dashboard mode</li>
+                    <li>Local notes</li>
+                    <li>Journal entries</li>
+                    <li>Daily perspective cards</li>
+                    <li>Weather and astronomy data</li>
+                    <li>PIR motion wake</li>
+                    <li>Full-screen kiosk mode</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h2>Planned Features</h2>
+                <ul>
+                    <li>Voice commands</li>
+                    <li>Audio responses</li>
+                    <li>Face detection</li>
+                    <li>Private unlock mode</li>
+                    <li>Future letters</li>
+                    <li>Monthly reflection reports</li>
+                    <li>On This Day personal timeline</li>
+                    <li>Environmental sensors</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="card section">
+            <h2>Build Philosophy</h2>
+            <p>
+                The Observatory is intentionally local-first. It may pull selected information from external
+                APIs, but it is not designed as a public web service. Private notes, reflections and personal
+                history remain stored locally on the device.
+            </p>
+
+            <p>
+                The system should feel more like a calm household fixture than a normal computer: always
+                available, quietly useful, and designed to encourage perspective rather than distraction.
+            </p>
+        </section>
+
+        <section class="card section">
+            <h2>Current Estimated Cost</h2>
+            <p class="text-muted">
+                Since the Raspberry Pi 5 16GB is already owned, the remaining expected build cost is currently:
+            </p>
+
+            <h3>Estimated Remaining Spend: £400-£550</h3>
+
+            <p>
+                The display is the largest cost and the most important quality decision. The industrial keyboard
+                also increases the budget, but fits the wall-mounted appliance style of the build.
+            </p>
+        </section>
+    </main>
+
+    <script src="../assets/js/includes.js"></script>
+</body>
+</html>

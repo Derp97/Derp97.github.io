@@ -1356,6 +1356,19 @@ select:focus-visible {
     }
 }
 
+/* mission APOD Card */
+
+.apod-explanation-scroll {
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 0.75rem;
+    margin-top: 1rem;
+}
+
+.apod-explanation-scroll p {
+    margin: 0;
+}
+
 /* =====================================================
    WEATHER DASHBOARD
 ===================================================== */
@@ -1548,6 +1561,204 @@ select:focus-visible {
     .weather-current-panel h2 {
         font-size: clamp(2.5rem, 12vw, 4rem);
     }
+}
+
+/* =====================================================
+   HOMELAB OBSERVATORY
+===================================================== */
+
+.hardware-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.hardware-item {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 280px;
+
+    padding: 1.5rem;
+    border-radius: 16px;
+
+    transition: all 0.2s ease;
+}
+
+.hardware-item:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--color-primary);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.hardware-item h3 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.hardware-item p {
+    margin-bottom: 0;
+}
+
+.hardware-meta {
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.hardware-meta span {
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.hardware-meta strong {
+    font-size: 0.95rem;
+}
+
+.hardware-meta a {
+    margin-left: auto;
+}
+
+.hardware-item.owned {
+    border-color: rgba(82, 196, 26, 0.35);
+}
+
+.hardware-status {
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+}
+
+.status-owned {
+    background: rgba(34,197,94,0.15);
+    color: #22c55e;
+}
+
+.status-planned {
+    background: rgba(59,130,246,0.15);
+    color: #3b82f6;
+}
+
+.status-decide {
+    background: rgba(245,158,11,0.15);
+    color: #f59e0b;
+}
+
+.hardware-total {
+    border-color: rgba(0, 128, 96, 0.35);
+    background: linear-gradient(
+        135deg,
+        rgba(0, 128, 96, 0.08),
+        rgba(255, 255, 255, 0.02)
+    );
+}
+
+.total-costs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: auto;
+}
+
+.total-costs div {
+    padding: 0.9rem;
+    border-radius: 14px;
+    background: rgba(0, 128, 96, 0.08);
+}
+
+.total-costs span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.total-costs strong {
+    font-size: 1.2rem;
+}
+
+.phase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.phase-card {
+    position: relative;
+    min-height: 220px;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.phase-card span {
+    display: inline-flex;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.phase-card h3 {
+    margin-bottom: var(--space-sm);
+}
+
+.phase-card::after {
+    content: "Pending";
+    position: absolute;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+}
+
+.phase-complete {
+    border-color: rgba(34, 197, 94, 0.45);
+}
+
+.phase-complete::after {
+    content: "Complete";
+    background: rgba(34, 197, 94, 0.12);
+    color: #15803d;
+}
+
+.phase-active {
+    border-color: rgba(0, 150, 136, 0.55);
+    box-shadow: 0 10px 28px rgba(0, 150, 136, 0.12);
+}
+
+.phase-active::after {
+    content: "Active";
+    background: var(--color-primary-soft);
+    color: var(--color-primary-dark);
 }
 
 /* =====================================================

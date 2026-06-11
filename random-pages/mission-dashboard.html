@@ -132,7 +132,10 @@
                 apodInfo.innerHTML = `
                     <h3>${data.title}</h3>
                     <p class="text-muted">${data.date}</p>
-                    <p>${data.explanation}</p>
+
+                    <div class="apod-explanation-scroll">
+                        <p>${data.explanation}</p>
+                    </div>
                 `;
             } catch (error) {
                 console.error(error);
