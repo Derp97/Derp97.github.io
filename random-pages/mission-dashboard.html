@@ -48,27 +48,26 @@
             </article>
 
             <article class="card mission-module">
-                <div class="module-header">
-                    <span class="badge">Weather</span>
-                    <h2>Today’s Weather</h2>
-                </div>
+                <span class="badge">Mars 3D Globe Dashboard</span>
+                <h3>Mars Activity</h3>
+                <p class="text-muted">
+                    A 3D visualization of Mars' surface and atmospheric conditions.
+                </p>
 
-                <div id="missionWeather" class="mission-weather-card">
-                    <p class="text-muted">Receiving weather telemetry...</p>
-                </div>
-
-                <a href="weather-dashboard.html">
-                    Open detailed weather dashboard →
+                <a href="mars-3d-globe.html">
+                    Open Mars 3D Globe Dashboard →
                 </a>
+
+                <img src="../assets/imgs/mars-texture.jpg" alt="Mars Globe" class="module-image">
             </article>
         </section>
 
         <section class="grid grid-3 section">
             <article class="card mission-module">
-                <span class="badge">Space Weather</span>
-                <h3>Solar Activity</h3>
+                <span class="badge">DONKI</span>
+                <h3>NASA DONKI Feed</h3>
                 <p class="text-muted">
-                    Planned module for solar flares, geomagnetic activity, and space weather alerts.
+                    A planned feed of space weather data from NASA's DONKI service.
                 </p>
             </article>
 
@@ -157,97 +156,6 @@
         }
 
         loadAPOD();
-    </script>
-    <script>
-    async function loadMissionWeather(latitude = 53.3811, longitude = -1.4701, label = "Sheffield, UK") {
-        const weatherBox = document.getElementById("missionWeather");
-
-        function weatherCodeToText(code) {
-            const codes = {
-                0: "Clear sky",
-                1: "Mainly clear",
-                2: "Partly cloudy",
-                3: "Overcast",
-                45: "Fog",
-                51: "Light drizzle",
-                53: "Moderate drizzle",
-                55: "Dense drizzle",
-                61: "Slight rain",
-                63: "Moderate rain",
-                65: "Heavy rain",
-                80: "Rain showers",
-                95: "Thunderstorm"
-            };
-
-            return codes[code] || "Unknown";
-        }
-
-        try {
-            const url = new URL("https://api.open-meteo.com/v1/forecast");
-
-            url.search = new URLSearchParams({
-                latitude,
-                longitude,
-                current: [
-                    "temperature_2m",
-                    "apparent_temperature",
-                    "precipitation",
-                    "weather_code",
-                    "wind_speed_10m",
-                    "cloud_cover"
-                ].join(","),
-                timezone: "auto"
-            });
-
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error("Weather request failed");
-            }
-
-            const data = await response.json();
-            const current = data.current;
-
-            weatherBox.innerHTML = `
-                <p class="eyebrow">${label}</p>
-
-                <div class="mission-weather-main">
-                    <strong>${Math.round(current.temperature_2m)}°C</strong>
-                    <span>${weatherCodeToText(current.weather_code)}</span>
-                </div>
-
-                <div class="mission-weather-grid">
-                    <div>
-                        <span>Feels</span>
-                        <strong>${Math.round(current.apparent_temperature)}°C</strong>
-                    </div>
-
-                    <div>
-                        <span>Wind</span>
-                        <strong>${Math.round(current.wind_speed_10m)} km/h</strong>
-                    </div>
-
-                    <div>
-                        <span>Cloud</span>
-                        <strong>${current.cloud_cover}%</strong>
-                    </div>
-
-                    <div>
-                        <span>Rain</span>
-                        <strong>${current.precipitation} mm</strong>
-                    </div>
-                </div>
-            `;
-        } catch (error) {
-            console.error(error);
-
-            weatherBox.innerHTML = `
-                <p class="text-muted">Weather telemetry unavailable.</p>
-            `;
-        }
-    }
-
-    loadMissionWeather();
     </script>
 </body>
 </html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nate&Co - Mars 3D Globe Dashboard</title>
+
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="icon" href="../assets/imgs/favicon-logo-32x32.png">
+</head>
+
+<body>
+    <div id="navbar-container" data-root="../"></div>
+
+    <main class="page">
+        <section class="card section landing-hero">
+            <p class="eyebrow">Mars 3D Globe Dashboard</p>
+
+            <h1>Mars conditions, mission locations, and planetary weather mapping.</h1>
+
+            <p class="text-muted">
+                A mission-control style dashboard showing mapped Mars conditions from rover,
+                lander, and model-style weather points.
+            </p>
+        </section>
+
+        <section class="card section mars-dashboard">
+            <div class="module-header">
+                <span class="badge">Mars Weather Map</span>
+                <h2>Interactive Mars Conditions Globe</h2>
+            </div>
+
+            <p class="text-muted">
+                Rotate Mars, select a location, and view human-readable weather conversions.
+                Current rover stations are shown alongside historic InSight data.
+            </p>
+
+            <div class="mars-dashboard-layout">
+                <div class="mars-globe-card">
+                    <div id="mars-globe"></div>
+                </div>
+
+                <aside class="mars-info-panel">
+                    <p class="eyebrow">Selected Station</p>
+                    <h3 id="station-name">Select a Mars location</h3>
+                    <p id="station-summary" class="text-muted">
+                        Click a marker on the globe or use the buttons below.
+                    </p>
+
+                    <div id="station-metrics" class="station-metrics"></div>
+
+                    <div id="station-buttons" class="station-buttons"></div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="grid grid-3 section" id="mars-location-cards"></section>
+    </main>
+
+    <script src="../assets/js/includes.js"></script>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module" src="../assets/js/mars-3d-globe.js"></script>
+</body>
+</html>
