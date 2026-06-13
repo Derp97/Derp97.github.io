@@ -1765,19 +1765,23 @@ select:focus-visible {
    7.1 MARS 3D GLOBE
 ===================================================== */
 
+/* =====================================================
+   MARS 3D GLOBE
+===================================================== */
+
 .mars-dashboard {
     overflow: hidden;
 }
 
 .mars-dashboard-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+    grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.45fr);
     gap: 1.5rem;
     align-items: stretch;
 }
 
 .mars-globe-card {
-    min-height: 520px;
+    min-height: 680px;
     border-radius: 1.2rem;
     overflow: hidden;
     background:
@@ -1789,10 +1793,12 @@ select:focus-visible {
 #mars-globe {
     width: 100%;
     height: 100%;
-    min-height: 520px;
+    min-height: 680px;
 }
 
 .mars-info-panel {
+    max-height: 680px;
+    overflow-y: auto;
     border-radius: 1.2rem;
     padding: 1.25rem;
     background: rgba(255, 255, 255, 0.04);
@@ -1802,6 +1808,8 @@ select:focus-visible {
 .mars-info-panel h3 {
     margin: 0.3rem 0 0.5rem;
 }
+
+/* Station Metrics */
 
 .station-metrics {
     display: grid;
@@ -1816,11 +1824,15 @@ select:focus-visible {
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.station-metric-wide {
+    grid-column: 1 / -1;
+}
+
 .station-metric span {
     display: block;
+    margin-bottom: 0.25rem;
     color: var(--text-muted, #9ca3af);
     font-size: 0.82rem;
-    margin-bottom: 0.25rem;
 }
 
 .station-metric strong {
@@ -1830,16 +1842,79 @@ select:focus-visible {
 
 .station-metric small {
     display: block;
-    color: var(--text-muted, #9ca3af);
     margin-top: 0.2rem;
+    color: var(--text-muted, #9ca3af);
     line-height: 1.35;
 }
 
+.modelled-condition-note {
+    border-color: rgba(59, 130, 246, 0.18);
+    background: rgba(59, 130, 246, 0.055);
+}
+
+/* Sidebar Dropdown Controls */
+
 .station-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    display: grid;
+    gap: 0.45rem;
     margin-top: 1rem;
+}
+
+.station-button-group {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.045);
+}
+
+.station-button-group-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    padding: 0.55rem 0.7rem;
+    cursor: pointer;
+
+    color: inherit;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    list-style: none;
+}
+
+.station-button-group-title::-webkit-details-marker {
+    display: none;
+}
+
+.station-button-group-title::after {
+    content: "▾";
+    opacity: 0.65;
+    transition: transform var(--transition-fast);
+}
+
+.station-button-group[open] .station-button-group-title::after {
+    transform: rotate(180deg);
+}
+
+.station-button-group-title small {
+    min-width: 1.4rem;
+    margin-left: auto;
+    border-radius: var(--radius-pill);
+    padding: 0.1rem 0.45rem;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted, #9ca3af);
+
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.station-button-group-list {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0 0.45rem 0.5rem;
 }
 
 .station-button {
@@ -1847,10 +1922,29 @@ select:focus-visible {
     border: 1px solid rgba(255, 255, 255, 0.14);
     background: rgba(255, 255, 255, 0.06);
     color: inherit;
-    border-radius: 999px;
-    padding: 0.45rem 0.75rem;
     font: inherit;
-    font-size: 0.85rem;
+}
+
+.station-button.compact {
+    display: grid;
+    gap: 0.05rem;
+    width: 100%;
+
+    padding: 0.42rem 0.55rem;
+    border-radius: 0.65rem;
+
+    text-align: left;
+    line-height: 1.2;
+}
+
+.station-button.compact span {
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.station-button.compact small {
+    color: var(--text-muted, #9ca3af);
+    font-size: 0.7rem;
 }
 
 .station-button:hover,
@@ -1858,6 +1952,8 @@ select:focus-visible {
     background: rgba(248, 113, 113, 0.18);
     border-color: rgba(248, 113, 113, 0.45);
 }
+
+/* Location Cards */
 
 .mars-location-card {
     position: relative;
@@ -1873,9 +1969,11 @@ select:focus-visible {
     margin-bottom: 0.75rem;
     padding: 0.25rem 0.55rem;
     border-radius: 999px;
-    font-size: 0.75rem;
+
     background: rgba(255, 255, 255, 0.07);
     color: var(--text-muted, #9ca3af);
+
+    font-size: 0.75rem;
 }
 
 .location-status.active {
@@ -1893,6 +1991,59 @@ select:focus-visible {
     background: rgba(59, 130, 246, 0.14);
 }
 
+/* Mission Cards / Images */
+
+.latest-rover-image-card a,
+.mission-card-image-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.latest-rover-image-card img,
+.mission-card-image-link img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    margin-top: 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--color-surface-muted);
+}
+
+.mission-card-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.mission-card-meta p {
+    margin: 0;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface-muted);
+}
+
+.mission-card-meta span {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.mission-card-meta strong {
+    display: block;
+    font-size: 0.95rem;
+}
+
+.mission-card-note {
+    margin-top: 0.75rem;
+    font-size: var(--font-size-sm);
+}
+
+/* Responsive */
+
 @media (max-width: 900px) {
     .mars-dashboard-layout {
         grid-template-columns: 1fr;
@@ -1900,10 +2051,13 @@ select:focus-visible {
 
     .mars-globe-card,
     #mars-globe {
-        min-height: 420px;
+        min-height: 520px;
+    }
+
+    .mars-info-panel {
+        max-height: none;
     }
 }
-
 
 /* =====================================================
    8. RESPONSIVE

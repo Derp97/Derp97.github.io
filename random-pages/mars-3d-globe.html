@@ -16,23 +16,23 @@
         <section class="card section landing-hero">
             <p class="eyebrow">Mars 3D Globe Dashboard</p>
 
-            <h1>Mars conditions, mission locations, and planetary weather mapping.</h1>
+            <h1>Mars mission locations, rover imagery, and modelled planetary conditions.</h1>
 
             <p class="text-muted">
-                A mission-control style dashboard showing mapped Mars conditions from rover,
-                lander, and model-style weather points.
+                A mission-control style dashboard showing mapped rover sites, archived lander locations,
+                landmark reference points, NASA rover imagery, and clearly labelled modelled conditions.
             </p>
         </section>
 
         <section class="card section mars-dashboard">
             <div class="module-header">
-                <span class="badge">Mars Weather Map</span>
-                <h2>Interactive Mars Conditions Globe</h2>
+                <span class="badge">Mars Mission Map</span>
+                <h2>Interactive Mars Mission Globe</h2>
             </div>
 
             <p class="text-muted">
-                Rotate Mars, select a location, and view human-readable weather conversions.
-                Current rover stations are shown alongside historic InSight data.
+                Rotate Mars, select a location, and inspect mission profiles, surface landmarks,
+                latest available rover imagery, and modelled environmental context.
             </p>
 
             <div class="mars-dashboard-layout">
@@ -41,15 +41,15 @@
                 </div>
 
                 <aside class="mars-info-panel">
-                    <p class="eyebrow">Selected Station</p>
-                    <h3 id="station-name">Select a Mars location</h3>
+                    <div id="station-buttons" class="station-buttons"></div>
+                    
+                    <p class="eyebrow">Selected Site</p>
+                    <h3 id="station-name">Select a mission site</h3>
                     <p id="station-summary" class="text-muted">
                         Click a marker on the globe or use the buttons below.
                     </p>
 
                     <div id="station-metrics" class="station-metrics"></div>
-
-                    <div id="station-buttons" class="station-buttons"></div>
                 </aside>
             </div>
         </section>
