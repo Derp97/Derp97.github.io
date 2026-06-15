@@ -139,11 +139,10 @@ function drawToggleButton(id, label, valueText, x, y, width, height, onClick) {
 function drawTitleBar() {
   ctx.fillStyle = "#f8fafc";
   ctx.font = "800 30px system-ui";
-  ctx.fillText("Dungeon Generator", 20, 48);
+  ctx.fillText("Dungeon Generator Game V1.1.6", 20, 48);
 
   ctx.fillStyle = "#94a3b8";
   ctx.font = "15px system-ui";
-  ctx.fillText("Keyboard: WASD / Arrows · Shift sprint · Space dash", 420, 46);
 }
 
 function drawLeftInfoPanel() {
@@ -180,6 +179,26 @@ function toggleCanvasHud() {
   renderDungeon(currentDungeon);
 }
 
+function toggleSettingsPanel() {
+  canvasUi.settingsPanelOpen = !canvasUi.settingsPanelOpen;
+  renderDungeon(currentDungeon);
+}
+
+function isFullscreenActive() {
+  return Boolean(document.fullscreenElement);
+}
+
+function toggleFullscreenMode() {
+  if (!document.fullscreenEnabled) return;
+
+  if (isFullscreenActive()) {
+    document.exitFullscreen?.();
+    return;
+  }
+
+  (gameShell || document.documentElement).requestFullscreen?.();
+}
+
 function drawRightControlPanel() {
   const panel = FULL_RIGHT_PANEL;
   drawPanel(panel.x, panel.y, panel.width, panel.height, "Controls");
@@ -190,7 +209,47 @@ function drawRightControlPanel() {
   const height = 42;
   const gap = 12;
 
-  drawButton("generate", "Generate Dungeon", x, y, width, height, regenerate); y += height + gap + 8;
+  drawButton(
+    "settingsToggle",
+    canvasUi.settingsPanelOpen ? "Close Settings" : "Settings",
+    x,
+    y,
+    width,
+    height,
+    toggleSettingsPanel
+  );
+  y += height + gap;
+
+  if (canvasUi.settingsPanelOpen) {
+    ctx.fillStyle = "#c4b5fd";
+    ctx.font = "700 18px system-ui";
+    ctx.fillText("Settings", x, y + 18); y += 32;
+
+    drawToggleButton(
+      "fullscreenToggle",
+      "Fullscreen Mode",
+      document.fullscreenEnabled ? (isFullscreenActive() ? "Exit fullscreen" : "Enter fullscreen") : "Unavailable",
+      x,
+      y,
+      width,
+      58,
+      toggleFullscreenMode
+    ); y += 70;
+
+    drawToggleButton("controlsMode", "Touch Controls", getControlsModeLabel(), x, y, width, 58, cycleControlsMode); y += 70;
+    drawToggleButton("hudToggle", "Canvas HUD", canvasUi.settings.showHud ? "Shown" : "Hidden", x, y, width, 58, toggleCanvasHud); y += 82;
+
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "13px system-ui";
+    ctx.fillText("More options can be added here.", x, y);
+    return;
+  }
+
+  drawButton("generate", "Reset Dungeon", x, y, width, height, () => {
+    setActiveOverlay("confirmReset");
+  }); y += height + gap;
+  
+  drawButton("openHowToPlay", "How To Play", x, y, width, height, () => openHowToPlay(null)); y += height + gap + 8;
 
   ctx.fillStyle = "#c4b5fd";
   ctx.font = "700 18px system-ui";
@@ -199,16 +258,8 @@ function drawRightControlPanel() {
   drawButton("buyHealth", `Max Health (${HEALTH_UPGRADE_COST}g)`, x, y, width, height, buyMaxHealth, !canBuyMaxHealth()); y += height + gap;
   drawButton("heal", `Heal (${HEAL_COST}g)`, x, y, width, height, buyHeal, !canBuyHeal()); y += height + gap;
   drawButton("armour", armourLevel >= MAX_ARMOUR_LEVEL ? "Armour Maxed" : `Armour (${armourCost}g)`, x, y, width, height, buyArmour, !canBuyArmour()); y += height + gap;
-  drawButton("dashUpgrade", dashLevel >= MAX_DASH_LEVEL ? "Dash Maxed" : `Dash Upgrade (${dashUpgradeCost}g)`, x, y, width, height, buyDashUpgrade, !canBuyDashUpgrade()); y += height + gap + 10;
-
-  ctx.fillStyle = "#c4b5fd";
-  ctx.font = "700 18px system-ui";
-  ctx.fillText("Settings", x, y + 18); y += 32;
-
-  drawToggleButton("hudToggle", "Canvas HUD", canvasUi.settings.showHud ? "Shown" : "Hidden", x, y, width, 58, toggleCanvasHud); y += 70;
-  drawToggleButton("controlsMode", "Touch Controls", getControlsModeLabel(), x, y, width, 58, cycleControlsMode);
+  drawButton("dashUpgrade", dashLevel >= MAX_DASH_LEVEL ? "Dash Maxed" : `Dash Upgrade (${dashUpgradeCost}g)`, x, y, width, height, buyDashUpgrade, !canBuyDashUpgrade());
 }
-
 function drawInternalHud() {
   if (!canvasUi.settings.showHud) return;
 
@@ -269,13 +320,16 @@ function drawRoundActionButton(id, label, x, y, radius, holdKeyMode) {
     if (!holdKeyMode) tryDash();
   }, { circle: { x, y, radius }, holdKey: holdKeyMode ? "shift" : null });
 
+  const isActive = canvasUi.activeMobileButtons.has(id);
+
   ctx.save();
   ctx.fillStyle = id === "dash" ? "rgba(220, 38, 38, 0.82)" : "rgba(37, 99, 235, 0.82)";
+  if (isActive) ctx.globalAlpha = 1;
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.28)";
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = isActive ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.28)";
+  ctx.lineWidth = isActive ? 5 : 3;
   ctx.stroke();
   ctx.fillStyle = "#ffffff";
   ctx.textAlign = "center";
@@ -292,4 +346,131 @@ function drawGameUi() {
   drawRightControlPanel();
   drawInternalHud();
   drawMobileControls();
+}
+
+function drawOverlayButton(id, label, x, y, width, height, onClick, disabled = false) {
+  drawButton(id, label, x, y, width, height, onClick, disabled);
+}
+
+function drawOverlayCard(title, subtitle, height = 430) {
+  const width = 560;
+  const x = (canvas.width - width) / 2;
+  const y = (canvas.height - height) / 2;
+
+  ctx.save();
+  ctx.fillStyle = "rgba(2, 6, 23, 0.68)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "rgba(15, 23, 42, 0.96)";
+  drawRoundedRect(ctx, x, y, width, height, 24);
+  ctx.strokeStyle = "rgba(196, 181, 253, 0.42)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#f8fafc";
+  ctx.font = "900 42px system-ui";
+  ctx.fillText(title, x + width / 2, y + 70);
+
+  if (subtitle) {
+    ctx.fillStyle = "#c4b5fd";
+    ctx.font = "600 18px system-ui";
+    ctx.fillText(subtitle, x + width / 2, y + 104);
+  }
+
+  ctx.restore();
+  return { x, y, width, height };
+}
+
+function drawStartOverlay() {
+  const card = drawOverlayCard("Dungeon Crawler", "Collect treasure, find keys, survive deeper floors.", 450);
+  const buttonX = card.x + 150;
+  let y = card.y + 155;
+
+  drawOverlayButton("startGame", "Start Game", buttonX, y, 260, 50, closeOverlay); y += 66;
+  drawOverlayButton("startHowToPlay", "How To Play", buttonX, y, 260, 50, () => openHowToPlay("start")); y += 66;
+  drawOverlayButton("startFullscreen", isFullscreenActive() ? "Exit Fullscreen" : "Fullscreen", buttonX, y, 260, 50, toggleFullscreenMode); y += 72;
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "14px system-ui";
+  ctx.fillText("Enter starts · Works with keyboard, mouse, touch, and mobile controls", card.x + card.width / 2, y);
+  ctx.restore();
+}
+
+function drawHowToPlayOverlay() {
+  const card = drawOverlayCard("How To Play", "The game is paused while this screen is open.", 560);
+  const x = card.x + 58;
+  let y = card.y + 150;
+  const lines = [
+    "Move: WASD / Arrow keys, or the joystick.",
+    "Sprint: hold Shift, or the Sprint button.",
+    "Dash: press Space, or tap the Dash button.",
+    "Treasure gives score and gold. Spend gold in the shop.",
+    "Orange keys open grand chests (Bright Yellow).",
+    "Red exits move to the next floor.",
+    "Enemies hurt you on contact, but drop gold.",
+    "Armour reduces damage.",
+    "Dash gives brief invulnerability.",
+  ];
+
+  ctx.save();
+  ctx.textAlign = "left";
+  ctx.fillStyle = "#e5e7eb";
+  ctx.font = "16px system-ui";
+  for (const line of lines) {
+    ctx.fillText(line, x, y);
+    y += 32;
+  }
+  ctx.restore();
+
+  y = card.y + card.height - 86;
+  drawOverlayButton("howToBack", "Back", card.x + 70, y, 190, 48, closeHowToPlay);
+  drawOverlayButton("howToResume", "Resume", card.x + 300, y, 190, 48, closeOverlay);
+}
+
+function drawDeathOverlay() {
+  const card = drawOverlayCard("You Died", "The dungeon claims another run.", 470);
+  const stats = lastRunStats || { floor: dungeonFloor, score, gold };
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#e5e7eb";
+  ctx.font = "700 22px system-ui";
+  ctx.fillText(`Floor Reached: ${stats.floor}`, card.x + card.width / 2, card.y + 155);
+  ctx.fillText(`Score: ${stats.score}`, card.x + card.width / 2, card.y + 190);
+  ctx.fillText(`Gold Collected: ${stats.gold}g`, card.x + card.width / 2, card.y + 225);
+
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "15px system-ui";
+  ctx.fillText("Press Enter or tap New Run to try again.", card.x + card.width / 2, card.y + 270);
+  ctx.restore();
+
+  drawOverlayButton("deathRestart", "New Run", card.x + 150, card.y + 315, 260, 50, resetRun);
+}
+
+function drawOverlayScreen() {
+  if (!activeOverlay) return;
+
+  if (activeOverlay === "start") drawStartOverlay();
+  if (activeOverlay === "howToPlay") drawHowToPlayOverlay();
+  if (activeOverlay === "death") drawDeathOverlay();
+  if (activeOverlay === "confirmReset") drawConfirmResetOverlay();
+}
+
+function drawConfirmResetOverlay() {
+  const card = drawOverlayCard("Generate New Dungeon", "This will reset your current run.", 400);
+  const buttonX = card.x + 150;
+  let y = card.y + 155;
+  
+  drawOverlayButton("confirmReset", "Confirm", buttonX, y, 260, 50, confirmGenerateDungeon); y += 66;
+  drawOverlayButton("cancelReset", "Cancel", buttonX, y, 260, 50, closeOverlay);
+}
+
+
+function confirmGenerateDungeon() {
+  closeOverlay();
+  resetRun();
+  regenerate();
 }

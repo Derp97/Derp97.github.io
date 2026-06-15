@@ -124,11 +124,20 @@ function checkEnemyCollision() {
   enemies.splice(enemyIndex, 1);
 
   if (health <= 0) {
-    resetRun();
+    lastRunStats = {
+      floor: dungeonFloor,
+      score,
+      gold,
+    };
+    health = 0;
+    setActiveOverlay("death");
   }
 }
 
 function resetRun() {
+  activeOverlay = null;
+  lastRunStats = null;
+
   gold = 0;
   score = 0;
 

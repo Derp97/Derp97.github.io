@@ -54,4 +54,5 @@ function renderDungeon(grid) {
   );
 
   drawGameUi();
+  drawOverlayScreen();
 }

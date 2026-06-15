@@ -3,9 +3,58 @@ function regenerate() {
   renderDungeon(currentDungeon);
 }
 
+function isGamePaused() {
+  return Boolean(activeOverlay);
+}
+
+function setActiveOverlay(overlayName) {
+  activeOverlay = overlayName;
+  releaseAllCanvasPointers();
+  releaseJoystickKeys();
+  keysHeld.clear();
+  canvasUi.activeMobileButtons.clear();
+  renderDungeon(currentDungeon);
+}
+
+function closeOverlay() {
+  setActiveOverlay(null);
+}
+
+function openHowToPlay(returnTarget = activeOverlay || null) {
+  overlayReturnTarget = returnTarget || null;
+  setActiveOverlay("howToPlay");
+}
+
+function closeHowToPlay() {
+  setActiveOverlay(overlayReturnTarget);
+}
+
 function releaseJoystickKeys() {
   ["arrowup", "arrowdown", "arrowleft", "arrowright"].forEach(key => keysHeld.delete(key));
   canvasUi.joystickVector = { x: 0, y: 0 };
+}
+
+function releasePointer(pointerId) {
+  const pointerState = canvasUi.activePointers.get(pointerId);
+  if (!pointerState) return;
+
+  if (pointerState.mode === "joystick") {
+    releaseJoystickKeys();
+    canvasUi.joystickPointerId = null;
+  }
+
+  if (pointerState.mode === "holdKey" && pointerState.holdKey) {
+    keysHeld.delete(pointerState.holdKey);
+    canvasUi.activeMobileButtons.delete(pointerState.id);
+  }
+
+  canvasUi.activePointers.delete(pointerId);
+}
+
+function releaseAllCanvasPointers() {
+  for (const pointerId of canvasUi.activePointers.keys()) {
+    releasePointer(pointerId);
+  }
 }
 
 function updateJoystickFromPoint(point) {
@@ -49,10 +98,21 @@ function handleCanvasPointerDown(event) {
   event.preventDefault();
   canvas.focus?.();
   canvas.setPointerCapture?.(event.pointerId);
-  canvasUi.activePointerId = event.pointerId;
+
+  if (activeOverlay) {
+    if (!hitbox || hitbox.disabled) return;
+    hitbox.onClick?.();
+    renderDungeon(currentDungeon);
+    return;
+  }
 
   if (shouldShowMobileControls() && pointInCircle(point, { ...JOYSTICK_CENTER, radius: JOYSTICK_RADIUS + 26 })) {
-    canvasUi.pointerMode = "joystick";
+    if (canvasUi.joystickPointerId !== null && canvasUi.joystickPointerId !== event.pointerId) {
+      releasePointer(canvasUi.joystickPointerId);
+    }
+
+    canvasUi.joystickPointerId = event.pointerId;
+    canvasUi.activePointers.set(event.pointerId, { mode: "joystick" });
     updateJoystickFromPoint(point);
     renderDungeon(currentDungeon);
     return;
@@ -61,18 +121,29 @@ function handleCanvasPointerDown(event) {
   if (!hitbox || hitbox.disabled) return;
 
   if (hitbox.holdKey) {
-    canvasUi.pointerMode = "holdKey";
+    canvasUi.activePointers.set(event.pointerId, {
+      mode: "holdKey",
+      holdKey: hitbox.holdKey,
+      id: hitbox.id,
+    });
+    canvasUi.activeMobileButtons.add(hitbox.id);
     keysHeld.add(hitbox.holdKey);
     renderDungeon(currentDungeon);
     return;
   }
 
+  canvasUi.activePointers.set(event.pointerId, {
+    mode: "tapAction",
+    id: hitbox.id,
+  });
+  canvasUi.activeMobileButtons.add(hitbox.id);
   hitbox.onClick?.();
+  renderDungeon(currentDungeon);
 }
 
 function handleCanvasPointerMove(event) {
-  if (canvasUi.activePointerId !== event.pointerId) return;
-  if (canvasUi.pointerMode !== "joystick") return;
+  const pointerState = canvasUi.activePointers.get(event.pointerId);
+  if (!pointerState || pointerState.mode !== "joystick") return;
 
   event.preventDefault();
   updateJoystickFromPoint(getCanvasPoint(event));
@@ -80,20 +151,12 @@ function handleCanvasPointerMove(event) {
 }
 
 function handleCanvasPointerUp(event) {
-  if (canvasUi.activePointerId !== event.pointerId) return;
+  if (!canvasUi.activePointers.has(event.pointerId)) return;
 
   event.preventDefault();
-
-  if (canvasUi.pointerMode === "joystick") {
-    releaseJoystickKeys();
-  }
-
-  if (canvasUi.pointerMode === "holdKey") {
-    keysHeld.delete("shift");
-  }
-
-  canvasUi.pointerMode = null;
-  canvasUi.activePointerId = null;
+  const pointerState = canvasUi.activePointers.get(event.pointerId);
+  if (pointerState?.id) canvasUi.activeMobileButtons.delete(pointerState.id);
+  releasePointer(event.pointerId);
   canvas.releasePointerCapture?.(event.pointerId);
   renderDungeon(currentDungeon);
 }
@@ -103,9 +166,26 @@ function bindControls() {
   canvas.addEventListener("pointermove", handleCanvasPointerMove);
   canvas.addEventListener("pointerup", handleCanvasPointerUp);
   canvas.addEventListener("pointercancel", handleCanvasPointerUp);
+  canvas.addEventListener("lostpointercapture", handleCanvasPointerUp);
+
+  window.addEventListener("blur", () => {
+    releaseAllCanvasPointers();
+    releaseJoystickKeys();
+    keysHeld.delete("shift");
+    canvasUi.activeMobileButtons.clear();
+    renderDungeon(currentDungeon);
+  });
 
   window.addEventListener("keydown", event => {
     const key = event.key.toLowerCase();
+
+    if (activeOverlay) {
+      if (event.key === "Escape" && activeOverlay === "howToPlay") closeHowToPlay();
+      if (event.key === "Enter" && activeOverlay === "start") closeOverlay();
+      if (event.key === "Enter" && activeOverlay === "death") resetRun();
+      return;
+    }
+
     keysHeld.add(key);
 
     if (event.code === "Space") {
@@ -119,7 +199,9 @@ function bindControls() {
   });
 
   window.addEventListener("resize", () => renderDungeon(currentDungeon));
+  document.addEventListener("fullscreenchange", () => renderDungeon(currentDungeon));
 }
+
 
 function startGame() {
   loadCanvasUiSettings();
@@ -127,12 +209,12 @@ function startGame() {
   regenerate();
 
   setInterval(() => {
-    if (!currentDungeon) return;
+    if (!currentDungeon || isGamePaused()) return;
     moveEnemies();
   }, ENEMY_MOVE_INTERVAL);
 
   setInterval(() => {
-    handlePlayerMovement();
+    if (!isGamePaused()) handlePlayerMovement();
   }, PLAYER_INPUT_INTERVAL);
 
   setInterval(() => {

@@ -26,11 +26,17 @@ let dungeonFloor = 1;
 let hasChestKey = false;
 let enemies = [];
 
+let activeOverlay = "start";
+let overlayReturnTarget = "start";
+let lastRunStats = null;
+
 const canvasUi = {
   hitboxes: [],
-  pointerMode: null,
-  activePointerId: null,
+  activePointers: new Map(),
+  joystickPointerId: null,
   joystickVector: { x: 0, y: 0 },
+  activeMobileButtons: new Set(),
+  settingsPanelOpen: false,
   settings: {
     showHud: false,
     controlsMode: "auto", // auto, show, hide
