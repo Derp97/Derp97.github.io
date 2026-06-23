@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300">
+<rect width="1000" height="300" fill="#07111F"/>
+<circle cx="150" cy="150" r="90" fill="none" stroke="#E6ECF5" stroke-width="4"/>
+<circle cx="150" cy="150" r="65" fill="none" stroke="#9FC4FF" stroke-width="3"/>
+<circle cx="90" cy="95" r="8" fill="#E6ECF5"/>
+<circle cx="210" cy="205" r="10" fill="#9FC4FF"/>
+<text x="150" y="165" text-anchor="middle" fill="#E6ECF5" font-size="42" font-family="Arial">N&amp;C</text>
+<text x="280" y="145" fill="#E6ECF5" font-size="72" font-family="Arial">Nate</text>
+<text x="445" y="145" fill="#9FC4FF" font-size="72" font-family="Arial">&amp;</text>
+<text x="510" y="145" fill="#E6ECF5" font-size="72" font-family="Arial">Co</text>
+<text x="282" y="190" fill="#9FC4FF" font-size="18" font-family="Arial">EXPERIMENT • LEARN • ITERATE</text>
+</svg>
+
+<animateTransform
+    attributeName="transform"
+    type="rotate"
+    from="0 256 256"
+    to="360 256 256"
+    dur="20s"
+    repeatCount="indefinite"
+/>

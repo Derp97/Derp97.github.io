@@ -1,0 +1,31 @@
+<svg class="nateco-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-labelledby="natecoIconTitle natecoIconDesc">
+  <title id="natecoIconTitle">Nate&amp;Co Orbital Icon</title>
+  <desc id="natecoIconDesc">Animated N&amp;C orbital observatory icon.</desc>
+  <defs>
+    <filter id="nateco-icon-soft-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .bg { fill: #07111F; }
+      .ring { fill: none; stroke: #E6ECF5; stroke-linecap: round; stroke-linejoin: round; transform-box: fill-box; transform-origin: center; }
+      .ring.outer { stroke-width: 7; animation: spin 52s linear infinite; }
+      .ring.inner { stroke: #9FC4FF; stroke-width: 5; animation: spinReverse 34s linear infinite; }
+      .node { fill: #E6ECF5; }
+      .signal { fill: #9FC4FF; filter: url(#nateco-icon-soft-glow); animation: pulse 3.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+      .beacon { animation: blink 5.5s ease-in-out infinite; }
+      .mark { fill: #E6ECF5; font-family: Inter, Arial, sans-serif; font-size: 52px; font-weight: 500; }
+      @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+      @keyframes pulse { 0%,100% { opacity: .82; transform: scale(1); } 50% { opacity: 1; transform: scale(1.22); } }
+      @keyframes blink { 0%,78%,100% { opacity: .55; } 84%,92% { opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) { .ring.outer, .ring.inner, .signal, .beacon { animation: none; } }
+    </style>
+  </defs>
+  <rect class="bg" width="300" height="300" rx="34"/>
+  <g transform="translate(150 150)">
+    <g><circle class="ring outer" cx="0" cy="0" r="92"/><circle class="node beacon" cx="-62" cy="-56" r="8"/><circle class="signal" cx="62" cy="56" r="11"/></g>
+    <g><circle class="ring inner" cx="0" cy="0" r="66"/><circle class="node" cx="0" cy="-66" r="4"/><circle class="node" cx="66" cy="0" r="4"/></g>
+    <text class="mark" x="0" y="18" text-anchor="middle">N&amp;C</text>
+  </g>
+</svg>

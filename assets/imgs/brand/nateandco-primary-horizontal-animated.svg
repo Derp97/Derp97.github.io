@@ -1,0 +1,35 @@
+<svg class="nateco-logo nateco-logo--animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" role="img" aria-labelledby="natecoLogoTitle natecoLogoDesc">
+  <title id="natecoLogoTitle">Nate&amp;Co Orbital Observatory Logo</title>
+  <desc id="natecoLogoDesc">Animated orbital observatory logo for Nate&amp;Co with rotating rings and pulsing signal nodes.</desc>
+  <defs>
+    <filter id="nateco-soft-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <style>
+      .nateco-bg { fill: #07111F; }
+      .nateco-ring { fill: none; stroke: #E6ECF5; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; transform-box: fill-box; transform-origin: center; }
+      .nateco-ring--inner { stroke: #9FC4FF; stroke-width: 3; }
+      .nateco-node { fill: #E6ECF5; }
+      .nateco-node--signal { fill: #9FC4FF; filter: url(#nateco-soft-glow); animation: natecoSignalPulse 3.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+      .nateco-node--beacon { animation: natecoBeaconBlink 5.5s ease-in-out infinite; }
+      .nateco-mark-text, .nateco-wordmark, .nateco-tagline { font-family: Inter, Arial, sans-serif; font-weight: 500; }
+      .nateco-mark-text { fill: #E6ECF5; font-size: 42px; }
+      .nateco-wordmark { fill: #E6ECF5; font-size: 72px; }
+      .nateco-wordmark-accent, .nateco-tagline { fill: #9FC4FF; }
+      .nateco-tagline { font-size: 18px; letter-spacing: .18em; }
+      .nateco-orbit-outer { animation: natecoOrbitSpin 52s linear infinite; }
+      .nateco-orbit-inner { animation: natecoOrbitSpinReverse 34s linear infinite; }
+      @keyframes natecoOrbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes natecoOrbitSpinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+      @keyframes natecoSignalPulse { 0%, 100% { opacity: .82; transform: scale(1); } 50% { opacity: 1; transform: scale(1.22); } }
+      @keyframes natecoBeaconBlink { 0%, 78%, 100% { opacity: .55; } 84%, 92% { opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) { .nateco-orbit-outer, .nateco-orbit-inner, .nateco-node--signal, .nateco-node--beacon { animation: none; } }
+    </style>
+  </defs>
+  <rect class="nateco-bg" width="1000" height="300"/>
+  <g class="nateco-emblem" transform="translate(150 150)">
+    <g class="nateco-orbit-outer"><circle class="nateco-ring" cx="0" cy="0" r="90"/><circle class="nateco-node nateco-node--beacon" cx="-60" cy="-55" r="8"/><circle class="nateco-node nateco-node--signal" cx="60" cy="55" r="10"/></g>
+    <g class="nateco-orbit-inner"><circle class="nateco-ring nateco-ring--inner" cx="0" cy="0" r="65"/><circle class="nateco-node" cx="0" cy="-65" r="4"/><circle class="nateco-node" cx="65" cy="0" r="4"/></g>
+    <text class="nateco-mark-text" x="0" y="15" text-anchor="middle">N&amp;C</text>
+  </g>
+  <text class="nateco-wordmark" x="280" y="145">Nate</text><text class="nateco-wordmark nateco-wordmark-accent" x="445" y="145">&amp;</text><text class="nateco-wordmark" x="510" y="145">Co</text>
+  <text class="nateco-tagline" x="282" y="190">EXPERIMENT • LEARN • ITERATE</text>
+</svg>

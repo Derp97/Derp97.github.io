@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Core Terminal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="soundHintBanner" class="sound-hint-banner">
+    For the best Grid experience, turn sound on. And Click the Ambient Sound switch.
+  </div>
+  <canvas id="gridCanvas" aria-label="Grid Core visual experience"></canvas>
+  <div class="screen-vignette" aria-hidden="true"></div>
+
+  <section id="connectPanel" class="hud hud-left" aria-label="Connection panel">
+    <p class="eyebrow">Neural Interface Terminal</p>
+    <button id="connectButton" class="terminal-button" type="button">Connect</button>
+  </section>
+
+  <section id="phasePanel" class="hud hud-left" aria-label="System phase panel">
+    <p class="eyebrow">System Phase</p>
+    <p id="phaseLabel" class="large-status">Grid Status: Stable</p>
+    <p class="small-status">Stand By</p>
+  </section>
+
+  <section id="dataStreamPanel" class="hud hud-left" aria-label="Data stream panel">
+    <p class="eyebrow">Transfer Log</p>
+    <div class="packet-grid">
+      <span id="packetA">Packet_0000 &gt;&gt;</span>
+      <span id="packetB">Packet_0001 &gt;&gt;</span>
+      <span id="packetC">Packet_0002 &gt;&gt;</span>
+      <span>0x8A1F&nbsp;&nbsp;&nbsp;0x3C7D&nbsp;&nbsp;&nbsp;0x9E22</span>
+      <span>0x7B44&nbsp;&nbsp;&nbsp;0x2D18&nbsp;&nbsp;&nbsp;0x6F91</span>
+      <span>0xC3A9&nbsp;&nbsp;&nbsp;0x5E77&nbsp;&nbsp;&nbsp;0x1A0B</span>
+    </div>
+  </section>
+
+  <section id="coreStatusPanel" class="hud hud-right" aria-label="Core status panel">
+    <p class="eyebrow">Core Status</p>
+
+    <div class="meter-row">
+      <span>Stability</span>
+      <div id="stabilityValue" class="meter-value">98.7%</div>
+      <div class="meter"><i id="stabilityMeter"></i></div>
+    </div>
+
+    <div class="meter-row">
+      <span>Data Stream</span>
+      <div id="energyValue" class="meter-value">2.46 GB</div>
+      <div class="meter"><i id="energyMeter"></i></div>
+    </div>
+
+    <div class="meter-row">
+      <span>Core State</span>
+      <div id="stateValue" class="meter-value">Nominal</div>
+    </div>
+  </section>
+
+  <section id="interactionPanel" class="hud hud-right" aria-label="Interaction panel">
+    <button id="soundButton" type="button">Ambient Sound: Off</button>
+    <a class="terminal-button" href="../labs.html">Back to Labs</a>
+  </section>
+
+  <div id="gameHud" class="game-hud hidden" aria-label="Game HUD">
+    <span>Time: <strong id="timeValue">0.0</strong></span>
+    <span>Best: <strong id="bestValue">0.0</strong></span>
+  </div>
+
+  <div id="gameOverlay" class="game-overlay hidden" aria-label="Game overlay">
+    <div class="game-card">
+      <h2 id="gameTitle">Lightcycle Arena</h2>
+      <p id="gameMessage">Avoid walls, trails, and enemy riders. Use WASD or arrow keys to turn.</p>
+      <div class="game-actions">
+        <button id="startGameButton" class="terminal-button" type="button">Start Run</button>
+        <button id="returnCoreButton" class="terminal-button" type="button">Return Core</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-mark">// GRID CORE TERMINAL v2.7.1 // SECURE LINK REQUIRED</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

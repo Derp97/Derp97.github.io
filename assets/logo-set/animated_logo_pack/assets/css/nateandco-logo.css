@@ -1,0 +1,21 @@
+/* Nate&Co Animated Orbital Logo */
+
+.nateco-logo-embed {
+    display: block;
+    width: min(100%, 720px);
+    height: auto;
+}
+
+.nateco-logo-embed--nav {
+    width: 180px;
+}
+
+.nateco-logo-embed--hero {
+    width: min(100%, 760px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nateco-logo-embed {
+        animation: none;
+    }
+}
